@@ -25,22 +25,23 @@ public class Main extends Application {
 			
 			
 			// main screen (Jack)
-			Label label1 = new Label("Scene number 1:");
-			Button button1 = new Button("Go to scene 2");
-			button1.setOnAction(e -> window.setScene(scene2));
+			Label label1 = new Label("Main Menu:");
+			Button play_button = new Button("Play Game");
+			play_button.setOnAction(e -> window.setScene(scene2));
 			
-			VBox layout1 = new VBox(20);
-			layout1.getChildren().addAll(label1, button1);
-			scene1 = new Scene(layout1, 200, 200);
+			VBox main_screen = new VBox(20);
+			main_screen.getChildren().addAll(label1, play_button);
+			scene1 = new Scene(main_screen, 800, 600);
 			
 			
 			//game screen (Tim)
-			Button button2 = new Button("Go back to scene 1");
-			button2.setOnAction(e -> window.setScene(scene1));
+			Button menu_button = new Button("Main Menu");
+			Label label2 = new Label("Here is where we put the game.");
+			menu_button.setOnAction(e -> window.setScene(scene1));
 			
-			StackPane layout2 = new StackPane();
-			layout2.getChildren().add(button2);
-			scene2 = new Scene(layout2, 400, 300);
+			VBox game_screen = new VBox();
+			game_screen.getChildren().addAll(label2, menu_button);
+			scene2 = new Scene(game_screen, 800, 600);
 			
 			window.setScene(scene1); //default
 			window.setTitle("Title here");
