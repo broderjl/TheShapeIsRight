@@ -25,7 +25,7 @@ public class Main extends Application {
 			
 			
 			// main screen (Jack)
-			Label label1 = new Label("First Scene:");
+			Label label1 = new Label("Scene number 1:");
 			Button button1 = new Button("Go to scene 2");
 			button1.setOnAction(e -> window.setScene(scene2));
 			
