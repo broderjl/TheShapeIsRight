@@ -150,6 +150,11 @@ public class Main extends Application {
 			
 			// DISPLAY RESULTS
 			
+			// Add the .css file to the scence
+			scene1.getStylesheets().add( 
+					getClass().getResource("application.css").toExternalForm() );
+
+			
 			window.setScene(scene1); //default
 			window.setTitle("The Shape is Right!");
 			window.show();
