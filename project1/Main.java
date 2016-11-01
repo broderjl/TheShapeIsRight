@@ -10,9 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.event.*;
-import javafx.geometry.*;
+
 
 
 public class Main extends Application {
@@ -103,36 +101,37 @@ public class Main extends Application {
 				row1.getChildren().addAll(score, menu_button);
 			HBox row2 = new HBox();
 				VBox card1 = new VBox();
-					final ComboBox color_choice1 = new ComboBox(color_options);
-					final ComboBox shape_choice1 = new ComboBox(shape_options);
+					final ComboBox<String> color_choice1 = new ComboBox<String>(color_options);
+					final ComboBox<String> shape_choice1 = new ComboBox<String>(shape_options);
 					card1.getChildren().addAll(color_choice1, shape_choice1);
 				VBox card2 = new VBox();
-					final ComboBox color_choice2 = new ComboBox(color_options);
-					final ComboBox shape_choice2 = new ComboBox(shape_options);
+					final ComboBox<String> color_choice2 = new ComboBox<String>(color_options);
+					final ComboBox<String> shape_choice2 = new ComboBox<String>(shape_options);
 					card2.getChildren().addAll(color_choice2, shape_choice2);
 				row2.getChildren().addAll(card1, card2);
+				row2.getStyleClass().add("two_card_row");
 			HBox row3 = new HBox();
 				VBox card3 = new VBox();
-					final ComboBox color_choice3 = new ComboBox(color_options);
-					final ComboBox shape_choice3 = new ComboBox(shape_options);
+					final ComboBox<String> color_choice3 = new ComboBox<String>(color_options);
+					final ComboBox<String> shape_choice3 = new ComboBox<String>(shape_options);
 					card3.getChildren().addAll(color_choice3, shape_choice3);
 				VBox card4 = new VBox();
-					final ComboBox color_choice4 = new ComboBox(color_options);
-					final ComboBox shape_choice4 = new ComboBox(shape_options);
+					final ComboBox<String> color_choice4 = new ComboBox<String>(color_options);
+					final ComboBox<String> shape_choice4 = new ComboBox<String>(shape_options);
 					card4.getChildren().addAll(color_choice4, shape_choice4);
 				VBox card5 = new VBox();
-					final ComboBox color_choice5 = new ComboBox(color_options);
-					final ComboBox shape_choice5 = new ComboBox(shape_options);
+					final ComboBox<String> color_choice5 = new ComboBox<String>(color_options);
+					final ComboBox<String> shape_choice5 = new ComboBox<String>(shape_options);
 					card5.getChildren().addAll(color_choice5, shape_choice5);
 				row3.getChildren().addAll(card3, card4, card5);
 			HBox row4 = new HBox();
 					VBox card6 = new VBox();
-					final ComboBox color_choice6 = new ComboBox(color_options);
-					final ComboBox shape_choice6 = new ComboBox(shape_options);
+					final ComboBox<String> color_choice6 = new ComboBox<String>(color_options);
+					final ComboBox<String> shape_choice6 = new ComboBox<String>(shape_options);
 					card6.getChildren().addAll(color_choice6, shape_choice6);
 				VBox card7 = new VBox();
-					final ComboBox color_choice7 = new ComboBox(color_options);
-					final ComboBox shape_choice7 = new ComboBox(shape_options);
+					final ComboBox<String> color_choice7 = new ComboBox<String>(color_options);
+					final ComboBox<String> shape_choice7 = new ComboBox<String>(shape_options);
 					card7.getChildren().addAll(color_choice7, shape_choice7);
 				row4.getChildren().addAll(card6, card7);
 			HBox row5 = new HBox();
@@ -150,10 +149,11 @@ public class Main extends Application {
 			
 			// DISPLAY RESULTS
 			
-			// Add the .css file to the scence
+			// Add the .css file to the scene
 			scene1.getStylesheets().add( 
-					getClass().getResource("application.css").toExternalForm() );
-
+					getClass().getResource("scene1.css").toExternalForm() );
+			scene2.getStylesheets().add( 
+					getClass().getResource("scene2.css").toExternalForm() );
 			
 			window.setScene(scene1); //default
 			window.setTitle("The Shape is Right!");
