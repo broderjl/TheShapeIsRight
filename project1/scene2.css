@@ -1,4 +1,16 @@
-.two_card_row {
+.card_row {
+	-fx-background-color: gray;
 	-fx-padding: 10px;
-	-px-spacing: 10px;
+	-fx-spacing: 150px;
+	-fx-alignment: center;
+}
+
+.card {
+	-fx-background-color: red;
+	-fx-alignment: center;
+}
+
+.choice {
+	-fx-background-color: blue;
+	-fx-hgap: 10px;
 }
