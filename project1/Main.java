@@ -94,14 +94,19 @@ public class Main extends Application {
 				    );
 		
 			VBox game_screen = new VBox();
+			game_screen.getStyleClass().add("background");
 			scene2 = new Scene(game_screen, 900, 700);
 			
 			HBox row1 = new HBox();
+				
 				Label score = new Label("Score: ");	
 				Button menu_button = new Button("Main Menu");
 				row1.getChildren().addAll(score, menu_button);
+				
 			HBox row2 = new HBox();
-				VBox card1 = new VBox(40);
+				
+				VBox card1 = new VBox(50);
+					
 					final ComboBox<String> color_choice1 = new ComboBox<String>(color_options);
 					color_choice1.getStyleClass().add("choice");
 					color_choice1.setMinWidth(110);
@@ -112,7 +117,6 @@ public class Main extends Application {
 					shape_choice1.setMinWidth(110);
 					shape_choice1.setPrefWidth(110);
 					shape_choice1.setMaxWidth(110);
-					card1.getChildren().addAll(color_choice1, shape_choice1);
 					card1.setPrefHeight(160);
 					card1.setMinHeight(160);
 					card1.setMaxHeight(160);
@@ -120,44 +124,164 @@ public class Main extends Application {
 					card1.setPrefWidth(120);
 					card1.setMaxWidth(120);
 					card1.setPadding(new Insets(20, 0, 20, 0));
+					card1.getChildren().addAll(color_choice1, shape_choice1);
 					card1.getStyleClass().add("card");
-				VBox card2 = new VBox();
+				
+				VBox card2 = new VBox(50);
+					
 					final ComboBox<String> color_choice2 = new ComboBox<String>(color_options);
+					color_choice2.getStyleClass().add("choice");
+					color_choice2.setMinWidth(110);
+					color_choice2.setPrefWidth(110);
+					color_choice2.setMaxWidth(110);
 					final ComboBox<String> shape_choice2 = new ComboBox<String>(shape_options);
-					card2.getChildren().addAll(color_choice2, shape_choice2);
+					shape_choice2.getStyleClass().add("choice");
+					shape_choice2.setMinWidth(110);
+					shape_choice2.setPrefWidth(110);
+					shape_choice2.setMaxWidth(110);
+					card2.setPrefHeight(160);
+					card2.setMinHeight(160);
+					card2.setMaxHeight(160);
+					card2.setMinWidth(120);
+					card2.setPrefWidth(120);
+					card2.setMaxWidth(120);
+					card2.setPadding(new Insets(20, 0, 20, 0));
 					card2.getStyleClass().add("card");
+					card2.getChildren().addAll(color_choice2, shape_choice2);
+
+					
 				row2.getChildren().addAll(card1, card2);
 				row2.getStyleClass().add("card_row");
+			
+				
 			HBox row3 = new HBox();
-				VBox card3 = new VBox();
+				
+				VBox card3 = new VBox(50);
+					
 					final ComboBox<String> color_choice3 = new ComboBox<String>(color_options);
+					color_choice3.getStyleClass().add("choice");
+					color_choice3.setMinWidth(110);
+					color_choice3.setPrefWidth(110);
+					color_choice3.setMaxWidth(110);
 					final ComboBox<String> shape_choice3 = new ComboBox<String>(shape_options);
+					shape_choice3.getStyleClass().add("choice");
+					shape_choice3.setMinWidth(110);
+					shape_choice3.setPrefWidth(110);
+					shape_choice3.setMaxWidth(110);
+					card3.setPrefHeight(160);
+					card3.setMinHeight(160);
+					card3.setMaxHeight(160);
+					card3.setMinWidth(120);
+					card3.setPrefWidth(120);
+					card3.setMaxWidth(120);
+					card3.setPadding(new Insets(20, 0, 20, 0));
+					card3.getStyleClass().add("card");
 					card3.getChildren().addAll(color_choice3, shape_choice3);
-				VBox card4 = new VBox();
+				
+				VBox card4 = new VBox(50);
+					
 					final ComboBox<String> color_choice4 = new ComboBox<String>(color_options);
+					color_choice4.getStyleClass().add("choice");
+					color_choice4.setMinWidth(110);
+					color_choice4.setPrefWidth(110);
+					color_choice4.setMaxWidth(110);
 					final ComboBox<String> shape_choice4 = new ComboBox<String>(shape_options);
+					shape_choice4.getStyleClass().add("choice");
+					shape_choice4.setMinWidth(110);
+					shape_choice4.setPrefWidth(110);
+					shape_choice4.setMaxWidth(110);
+					card4.setPrefHeight(160);
+					card4.setMinHeight(160);
+					card4.setMaxHeight(160);
+					card4.setMinWidth(120);
+					card4.setPrefWidth(120);
+					card4.setMaxWidth(120);
+					card4.setPadding(new Insets(20, 0, 20, 0));
+					card4.getStyleClass().add("card");
 					card4.getChildren().addAll(color_choice4, shape_choice4);
-				VBox card5 = new VBox();
+				
+				VBox card5 = new VBox(50);
+					
 					final ComboBox<String> color_choice5 = new ComboBox<String>(color_options);
+					color_choice5.getStyleClass().add("choice");
+					color_choice5.setMinWidth(110);
+					color_choice5.setPrefWidth(110);
+					color_choice5.setMaxWidth(110);
 					final ComboBox<String> shape_choice5 = new ComboBox<String>(shape_options);
+					shape_choice5.getStyleClass().add("choice");
+					shape_choice5.setMinWidth(110);
+					shape_choice5.setPrefWidth(110);
+					shape_choice5.setMaxWidth(110);
+					card5.setPrefHeight(160);
+					card5.setMinHeight(160);
+					card5.setMaxHeight(160);
+					card5.setMinWidth(120);
+					card5.setPrefWidth(120);
+					card5.setMaxWidth(120);
+					card5.setPadding(new Insets(20, 0, 20, 0));
+					card5.getStyleClass().add("card");
 					card5.getChildren().addAll(color_choice5, shape_choice5);
+				
 				row3.getChildren().addAll(card3, card4, card5);
 				row3.getStyleClass().add("card_row");
+			
+				
 			HBox row4 = new HBox();
-					VBox card6 = new VBox();
+					
+				VBox card6 = new VBox(50);
+					
 					final ComboBox<String> color_choice6 = new ComboBox<String>(color_options);
+					color_choice6.getStyleClass().add("choice");
+					color_choice6.setMinWidth(110);
+					color_choice6.setPrefWidth(110);
+					color_choice6.setMaxWidth(110);
 					final ComboBox<String> shape_choice6 = new ComboBox<String>(shape_options);
+					shape_choice6.getStyleClass().add("choice");
+					shape_choice6.setMinWidth(110);
+					shape_choice6.setPrefWidth(110);
+					shape_choice6.setMaxWidth(110);
+					card6.setPrefHeight(160);
+					card6.setMinHeight(160);
+					card6.setMaxHeight(160);
+					card6.setMinWidth(120);
+					card6.setPrefWidth(120);
+					card6.setMaxWidth(120);
+					card6.setPadding(new Insets(20, 0, 20, 0));
+					card6.getStyleClass().add("card");
 					card6.getChildren().addAll(color_choice6, shape_choice6);
-				VBox card7 = new VBox();
+				
+				VBox card7 = new VBox(50);
+				
 					final ComboBox<String> color_choice7 = new ComboBox<String>(color_options);
+					color_choice7.getStyleClass().add("choice");
+					color_choice7.setMinWidth(110);
+					color_choice7.setPrefWidth(110);
+					color_choice7.setMaxWidth(110);
 					final ComboBox<String> shape_choice7 = new ComboBox<String>(shape_options);
+					shape_choice7.getStyleClass().add("choice");
+					shape_choice7.setMinWidth(110);
+					shape_choice7.setPrefWidth(110);
+					shape_choice7.setMaxWidth(110);
+					card7.setPrefHeight(160);
+					card7.setMinHeight(160);
+					card7.setMaxHeight(160);
+					card7.setMinWidth(120);
+					card7.setPrefWidth(120);
+					card7.setMaxWidth(120);
+					card7.setPadding(new Insets(20, 0, 20, 0));
+					card7.getStyleClass().add("card");
 					card7.getChildren().addAll(color_choice7, shape_choice7);
+				
 				row4.getChildren().addAll(card6, card7);
 				row4.getStyleClass().add("card_row");
+			
+				
 			HBox row5 = new HBox();
+				
 				Button flip_next = new Button("Next Flip");
 				Label game_number = new Label("Game Number: ");
 				row5.getChildren().addAll(flip_next, game_number);
+			
 			game_screen.getChildren().addAll(row1, row2, row3, row4, row5);
 
 			

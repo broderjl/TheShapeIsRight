@@ -1,16 +1,22 @@
+.background {
+	-fx-background-image: url("table.jpg");
+	-fx-background-repeat: stretch;
+	-fx-background-size: 900 700;
+	-fx-alignment: center center;
+}
+
 .card_row {
-	-fx-background-color: gray;
 	-fx-padding: 10px;
 	-fx-spacing: 150px;
 	-fx-alignment: center;
 }
 
 .card {
-	-fx-background-color: red;
-	-fx-alignment: center;
+	-fx-background-image: url("card_back.jpg");
+	-fx-background-repeat: stretch;
+	-fx-background-size: 120 160;
+	-fx-alignment: center center;
 }
 
 .choice {
-	-fx-background-color: blue;
-	-fx-hgap: 10px;
 }
