@@ -24,6 +24,7 @@ public class Main extends Application {
 	Stage window;
 	Scene scene1, scene2;
 	static int numberOfShapes;
+	static int cardsFlipped = 0;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -375,13 +376,17 @@ public class Main extends Application {
 			
 			
 			// ADD EVENT HANDLING
-			menu_button.setOnAction(e -> window.setScene(scene1));			
 			
+			// go back to main menu
+			menu_button.setOnAction(e -> window.setScene(scene1));			
+
+			// set up cards and start game screen
 			play_button.setOnAction(new EventHandler<ActionEvent>() {
 	            @Override 
 	            public void handle(ActionEvent event) {
 	                // move to next scene, where game play occurs
 	            	window.setScene(scene2);
+	            	cardsFlipped = 0;
 	            	
 	            	// adjust the number of visible cards
 	            	if(numberOfShapes == 3) {
@@ -411,6 +416,84 @@ public class Main extends Application {
 	            	}
 	            }
 	        });
+			
+			// flip cards one at a time
+			flip_next.setOnAction(new EventHandler<ActionEvent>() {
+	            @Override 
+	            public void handle(ActionEvent event) {    
+	            	if(numberOfShapes == 3) {
+	            		if(cardsFlipped == 0) {
+	    	            	color_choice3.setVisible(false);
+	    	            	shape_choice3.setVisible(false);
+	            		}
+	            		if(cardsFlipped == 1) {
+	    	            	color_choice4.setVisible(false);
+	    	            	shape_choice4.setVisible(false);
+	            		}
+	            		if(cardsFlipped == 2) {
+	    	            	color_choice5.setVisible(false);
+	    	            	shape_choice5.setVisible(false);
+	            		}
+	            	}
+	            	
+	            	if(numberOfShapes == 5) {
+	            		if(cardsFlipped == 0) {
+	    	            	color_choice1.setVisible(false);
+	    	            	shape_choice1.setVisible(false);
+	            		}
+	            		if(cardsFlipped == 1) {
+	    	            	color_choice2.setVisible(false);
+	    	            	shape_choice2.setVisible(false);
+	            		}
+	            		if(cardsFlipped == 2) {
+	    	            	color_choice4.setVisible(false);
+	    	            	shape_choice4.setVisible(false);
+	            		}
+	            		if(cardsFlipped == 3) {
+	    	            	color_choice6.setVisible(false);
+	    	            	shape_choice6.setVisible(false);
+	            		}
+	            		if(cardsFlipped == 4) {
+	    	            	color_choice7.setVisible(false);
+	    	            	shape_choice7.setVisible(false);
+	            		}
+	            	}
+	            	
+	            	if(numberOfShapes == 7) {
+	            		if(cardsFlipped == 0) {
+	    	            	color_choice1.setVisible(false);
+	    	            	shape_choice1.setVisible(false);
+	            		}
+	            		if(cardsFlipped == 1) {
+	    	            	color_choice2.setVisible(false);
+	    	            	shape_choice2.setVisible(false);
+	            		}
+	            		if(cardsFlipped == 2) {
+	    	            	color_choice3.setVisible(false);
+	    	            	shape_choice3.setVisible(false);
+	            		}
+	            		if(cardsFlipped == 3) {
+	    	            	color_choice4.setVisible(false);
+	    	            	shape_choice4.setVisible(false);
+	            		}
+	            		if(cardsFlipped == 4) {
+	    	            	color_choice5.setVisible(false);
+	    	            	shape_choice5.setVisible(false);
+	            		}
+	            		if(cardsFlipped == 5) {
+	    	            	color_choice6.setVisible(false);
+	    	            	shape_choice6.setVisible(false);
+	            		}
+	            		if(cardsFlipped == 6) {
+	    	            	color_choice7.setVisible(false);
+	    	            	shape_choice7.setVisible(false);
+	            		}
+	            	}
+	            	
+	            	cardsFlipped++;
+	            }
+			});
+			
 			
 			
 			// DISPLAY RESULTS
