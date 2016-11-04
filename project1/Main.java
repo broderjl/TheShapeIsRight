@@ -3,6 +3,8 @@ package project1;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -31,16 +33,10 @@ public class Main extends Application {
 			
 			// main screen (Jack)
 			
-			/*
-			 * Variables !!!!! Not sure where they are going to need to go
-			 * or what type (i.e. final? public?)
-			 */
-			
-			
 			Label label1 = new Label("Main Menu:");
 			Button play_button = new Button("Play Game");
 			play_button.getStyleClass().add("button");
-			play_button.setOnAction(e -> window.setScene(scene2));
+			
 			
 			/*
 			 * Drop down menu for selecting an N
@@ -88,9 +84,7 @@ public class Main extends Application {
 			listViewsHBox.getChildren().add(shapeSelectionListView);
 			listViewsHBox.getStyleClass().add("listViewsHBox");
 			
-			
-			
-			
+
 			
 			/*
 			 * Event Handling
@@ -100,8 +94,14 @@ public class Main extends Application {
 			numberOfShapesBox.setOnAction((event) -> {
 				String selectedNumber = numberOfShapesBox.getSelectionModel().getSelectedItem();
 				numberOfShapes = Integer.parseInt(selectedNumber);
-				System.out.println(numberOfShapes);
+				//System.out.println(numberOfShapes);
 			});
+			
+			// Play button event handling moved to end, since initial game setup occurs
+			// as it is clicked, which affects elements created in scene 2.
+			
+
+			
 			
 			/*
 			 * Adding the nodes to the scene
@@ -111,6 +111,7 @@ public class Main extends Application {
 			main_screen.getStyleClass().add("background");
 			main_screen.getChildren().addAll(label1, play_button, listViewsHBox, selectionBox);
 			scene1 = new Scene(main_screen, 900, 700);
+
 			
 			
 			
@@ -137,13 +138,13 @@ public class Main extends Application {
 				    );
 		
 			VBox game_screen = new VBox();
-			game_screen.setSpacing(10);
+			game_screen.setSpacing(20);
 			game_screen.getStyleClass().add("background");
 			scene2 = new Scene(game_screen, 900, 700);
 			
 			BorderPane row1 = new BorderPane();
 				
-				Label score = new Label("Score: ");
+				Label score = new Label("  Score: ");
 				row1.setLeft(score);
 				score.setMinWidth(120);
 				score.setPrefWidth(120);
@@ -151,7 +152,7 @@ public class Main extends Application {
 				score.setMinHeight(40);
 				score.setPrefHeight(40);
 				score.setMaxHeight(40);
-				score.getStyleClass().add("score");
+				score.getStyleClass().add("display_info");
 				
 				Label title = new Label("The Shape is Right!");
 				title.getStyleClass().add("title");
@@ -165,9 +166,7 @@ public class Main extends Application {
 				menu_button.setMinHeight(40);
 				menu_button.setPrefHeight(40);
 				menu_button.setMaxHeight(40);
-				score.getStyleClass().add("menu_button");
-				
-				//row1.getChildren().addAll(score, title, menu_button);
+				menu_button.getStyleClass().add("black_button");
 				
 			HBox row2 = new HBox();
 				
@@ -341,12 +340,35 @@ public class Main extends Application {
 				row4.getChildren().addAll(card6, card7);
 				row4.getStyleClass().add("card_row");
 			
-				
-			HBox row5 = new HBox();
-				
+			
+			BorderPane row5 = new BorderPane();
+			
+				HBox filler = new HBox();
+				row5.setLeft(filler);
+				filler.setMinWidth(120);
+				filler.setPrefWidth(120);
+				filler.setMaxWidth(120);
+			
 				Button flip_next = new Button("Next Flip");
-				Label game_number = new Label("Game Number: ");
-				row5.getChildren().addAll(flip_next, game_number);
+				row5.setCenter(flip_next);
+				flip_next.setMinWidth(120);
+				flip_next.setPrefWidth(120);
+				flip_next.setMaxWidth(120);
+				flip_next.setMinHeight(40);
+				flip_next.setPrefHeight(40);
+				flip_next.setMaxHeight(40);
+				flip_next.getStyleClass().add("black_button");
+				
+				Label game_number = new Label("  Game: ");
+				row5.setRight(game_number);
+				game_number.setMinWidth(120);
+				game_number.setPrefWidth(120);
+				game_number.setMaxWidth(120);
+				game_number.setMinHeight(40);
+				game_number.setPrefHeight(40);
+				game_number.setMaxHeight(40);
+				game_number.getStyleClass().add("display_info");
+
 			
 			game_screen.getChildren().addAll(row1, row2, row3, row4, row5);
 
@@ -355,6 +377,40 @@ public class Main extends Application {
 			// ADD EVENT HANDLING
 			menu_button.setOnAction(e -> window.setScene(scene1));			
 			
+			play_button.setOnAction(new EventHandler<ActionEvent>() {
+	            @Override 
+	            public void handle(ActionEvent event) {
+	                // move to next scene, where game play occurs
+	            	window.setScene(scene2);
+	            	
+	            	// adjust the number of visible cards
+	            	if(numberOfShapes == 3) {
+	            		card1.setVisible(false);
+	            		card2.setVisible(false);
+	            		card3.setVisible(true);
+	            		card4.setVisible(true);
+	            		card5.setVisible(true);
+	            		card6.setVisible(false);
+	            		card7.setVisible(false);
+	            	} else if (numberOfShapes == 5) {
+	            		card1.setVisible(true);
+	            		card2.setVisible(true);
+	            		card3.setVisible(false);
+	            		card4.setVisible(true);
+	            		card5.setVisible(false);
+	            		card6.setVisible(true);
+	            		card7.setVisible(true);
+	            	} else {
+	            		card1.setVisible(true);
+	            		card2.setVisible(true);
+	            		card3.setVisible(true);
+	            		card4.setVisible(true);
+	            		card5.setVisible(true);
+	            		card6.setVisible(true);
+	            		card7.setVisible(true);
+	            	}
+	            }
+	        });
 			
 			
 			// DISPLAY RESULTS

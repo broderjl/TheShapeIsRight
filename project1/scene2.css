@@ -28,11 +28,15 @@
 	-fx-text-fill: white;
 }
 
-.score {
-	-fx-background-color: brown;
+.display_info {
+	-fx-background-color: white;
+	-fx-text-fill: black;
+	-fx-font-family: Tacoma;
+	-fx-font-weight: bold;
+	-fx-font-size:14px;
 }
 
-.button {
+.black_button {
 	-fx-background-color: #090a0c, 
 		linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%), 
 		linear-gradient(#20262b, #191d22),
