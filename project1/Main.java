@@ -66,6 +66,7 @@ public class Main extends Application {
 			 */
 			
 			VBox main_screen = new VBox(20);
+			main_screen.getStyleClass().add("background");
 			main_screen.getChildren().addAll(label1, play_button, selectionBox);
 			scene1 = new Scene(main_screen, 900, 700);
 			
@@ -99,9 +100,11 @@ public class Main extends Application {
 			
 			HBox row1 = new HBox();
 				
-				Label score = new Label("Score: ");	
+				Label score = new Label("Score: ");
+				Label title = new Label("The Shape is Right!");
+				title.getStyleClass().add("title");
 				Button menu_button = new Button("Main Menu");
-				row1.getChildren().addAll(score, menu_button);
+				row1.getChildren().addAll(score, title, menu_button);
 				
 			HBox row2 = new HBox();
 				

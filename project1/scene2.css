@@ -14,9 +14,13 @@
 .card {
 	-fx-background-image: url("card_back.jpg");
 	-fx-background-repeat: stretch;
-	-fx-background-size: 120 160;
+	-fx-background-size: 120px 160px;
 	-fx-alignment: center center;
 }
 
 .choice {
+}
+
+.title {
+	
 }
