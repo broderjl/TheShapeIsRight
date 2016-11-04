@@ -6,6 +6,8 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
@@ -95,16 +97,37 @@ public class Main extends Application {
 				    );
 		
 			VBox game_screen = new VBox();
+			game_screen.setSpacing(10);
 			game_screen.getStyleClass().add("background");
 			scene2 = new Scene(game_screen, 900, 700);
 			
-			HBox row1 = new HBox();
+			BorderPane row1 = new BorderPane();
 				
 				Label score = new Label("Score: ");
+				row1.setLeft(score);
+				score.setMinWidth(120);
+				score.setPrefWidth(120);
+				score.setMaxWidth(120);
+				score.setMinHeight(40);
+				score.setPrefHeight(40);
+				score.setMaxHeight(40);
+				score.getStyleClass().add("score");
+				
 				Label title = new Label("The Shape is Right!");
 				title.getStyleClass().add("title");
+				row1.setCenter(title);
+				
 				Button menu_button = new Button("Main Menu");
-				row1.getChildren().addAll(score, title, menu_button);
+				row1.setRight(menu_button);
+				menu_button.setMinWidth(120);
+				menu_button.setPrefWidth(120);
+				menu_button.setMaxWidth(120);
+				menu_button.setMinHeight(40);
+				menu_button.setPrefHeight(40);
+				menu_button.setMaxHeight(40);
+				score.getStyleClass().add("menu_button");
+				
+				//row1.getChildren().addAll(score, title, menu_button);
 				
 			HBox row2 = new HBox();
 				
