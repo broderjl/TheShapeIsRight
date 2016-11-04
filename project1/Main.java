@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 
 
 
@@ -18,6 +19,7 @@ public class Main extends Application {
 	
 	Stage window;
 	Scene scene1, scene2;
+	static int numberOfShapes;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -32,10 +34,10 @@ public class Main extends Application {
 			 * or what type (i.e. final? public?)
 			 */
 			
-			int numberOfShapes;
 			
 			Label label1 = new Label("Main Menu:");
 			Button play_button = new Button("Play Game");
+			play_button.getStyleClass().add("button");
 			play_button.setOnAction(e -> window.setScene(scene2));
 			
 			/*
@@ -45,21 +47,59 @@ public class Main extends Application {
 			
 			// Label for selection
 			Label selectionLabel = new Label("Number of Shapes You Would Like To Play With:");
+			selectionLabel.getStyleClass().add("label");
 
-			
+			// Observable list of possible side number selections
 			ObservableList<String> numberOfShapesList =
 					FXCollections.observableArrayList(
-							"3", "4", "5", "6", "7", "8", "9");
+							"3", "5", "7", "9");
 			
+			// Create ComboBox for selecting the number of shapes
 			ComboBox<String> numberOfShapesBox = new ComboBox<String>(numberOfShapesList);			
 			VBox selectionBox = new VBox();
 			selectionBox.getChildren().addAll(selectionLabel, numberOfShapesBox);
+			
+			/*
+			 * 
+			 * ListView for selecting colors and shapes to 
+			 * be used for the playing of the game
+			 * 
+			 */
+			// HBox to hold the list views 
+			HBox listViewsHBox = new HBox();
+			
+			// Observable list and list view for selecting colors
+			ObservableList<String> colorSelectionList = FXCollections.observableArrayList(
+					"Color1", "Color2", "Color3");
+			ListView<String> colorSelectionListView = new ListView<String>(colorSelectionList);
+			colorSelectionListView.setPrefHeight(80);
+			colorSelectionListView.setPrefWidth(100);
+			
+			// Observable list and list view for selecting shapes
+			ObservableList<String> shapeSelectionList = FXCollections.observableArrayList(
+					"Shape1", "Shape2", "Shape3");
+			ListView<String> shapeSelectionListView = new ListView<String>(shapeSelectionList);
+			shapeSelectionListView.setPrefHeight(80);
+			shapeSelectionListView.setPrefWidth(100);
+			
+			listViewsHBox.getChildren().add(colorSelectionListView);
+			listViewsHBox.getChildren().add(shapeSelectionListView);
+			listViewsHBox.getStyleClass().add("listViewsHBox");
+			
+			
+			
+			
 			
 			/*
 			 * Event Handling
 			 */
 			
 			// Handling for the number of shapes selection
+			numberOfShapesBox.setOnAction((event) -> {
+				String selectedNumber = numberOfShapesBox.getSelectionModel().getSelectedItem();
+				numberOfShapes = Integer.parseInt(selectedNumber);
+				System.out.println(numberOfShapes);
+			});
 			
 			/*
 			 * Adding the nodes to the scene
@@ -67,7 +107,7 @@ public class Main extends Application {
 			
 			VBox main_screen = new VBox(20);
 			main_screen.getStyleClass().add("background");
-			main_screen.getChildren().addAll(label1, play_button, selectionBox);
+			main_screen.getChildren().addAll(label1, play_button, listViewsHBox, selectionBox);
 			scene1 = new Scene(main_screen, 900, 700);
 			
 			

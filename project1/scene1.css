@@ -8,3 +8,14 @@
 .button {
 	-fx-background-color: rgb(233,185,110);
 }
+
+.listViewsHBox {
+	-fx-padding: 50;
+	-fx-spacing: 100;
+	-fx-alignment: center center;
+}
+
+.label {
+	-fx-text-fill: white;
+	-fx-padding: 20;
+}
