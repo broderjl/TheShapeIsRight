@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.Scene;
@@ -29,8 +30,11 @@ public class Main extends Application {
 	
 	Stage window;
 	Scene scene1, scene2;
+	static final int MAX_GAMES = 3;
 	static int numberOfShapes;
 	static int cardsFlipped = 0;
+	static int points = 0;
+	static int game = 1;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -152,8 +156,9 @@ public class Main extends Application {
 
 
 			BorderPane row1 = new BorderPane();
-				Label score = new Label("  Score: ");
+				Label score = new Label("Score: 0");
 					row1.setLeft(score);
+					score.setAlignment(Pos.CENTER);
 					score.setMinWidth(120);
 					score.setPrefWidth(120);
 					score.setMaxWidth(120);
@@ -399,17 +404,32 @@ public class Main extends Application {
 					filler.setMinWidth(120);
 					filler.setPrefWidth(120);
 					filler.setMaxWidth(120);
-				Button flip_next = new Button("Next Flip");
-					row5.setCenter(flip_next);
-					flip_next.setMinWidth(120);
-					flip_next.setPrefWidth(120);
-					flip_next.setMaxWidth(120);
-					flip_next.setMinHeight(40);
-					flip_next.setPrefHeight(40);
-					flip_next.setMaxHeight(40);
-					flip_next.getStyleClass().add("black_button");
-				Label game_number = new Label("  Game: ");
+				StackPane game_buttons = new StackPane();
+					row5.setCenter(game_buttons);
+					Button flip_next = new Button("Next Flip");
+						flip_next.setMinWidth(120);
+						flip_next.setPrefWidth(120);
+						flip_next.setMaxWidth(120);
+						flip_next.setMinHeight(40);
+						flip_next.setPrefHeight(40);
+						flip_next.setMaxHeight(40);
+						flip_next.getStyleClass().add("black_button");
+					Button next_game = new Button("Next Game");
+						next_game.setVisible(false);
+						next_game.setMinWidth(120);
+						next_game.setPrefWidth(120);
+						next_game.setMaxWidth(120);
+						next_game.setMinHeight(40);
+						next_game.setPrefHeight(40);
+						next_game.setMaxHeight(40);
+						next_game.getStyleClass().add("black_button");
+					Label final_score = new Label("Final Score: 0");
+						final_score.getStyleClass().add("title");
+						final_score.setVisible(false);
+					game_buttons.getChildren().addAll(flip_next, next_game, final_score);
+				Label game_number = new Label("Game: 1");
 					row5.setRight(game_number);
+					game_number.setAlignment(Pos.CENTER);
 					game_number.setMinWidth(120);
 					game_number.setPrefWidth(120);
 					game_number.setMaxWidth(120);
@@ -441,7 +461,34 @@ public class Main extends Application {
 	            public void handle(ActionEvent event) {
 	                // move to next scene, where game play occurs
 	            	window.setScene(scene2);
+	            	
+	            	// reset all variables, since new game began
 	            	cardsFlipped = 0;
+	            	points = 0;
+	            	score.setText("Points: " + points);
+	            	game = 1;
+	            	game_number.setText("Game: " + game);
+	            	
+	            	// undo any previously played animations ("unflip" cards)
+            		front1.scaleXProperty().setValue(1);
+            		back1.scaleXProperty().setValue(1);
+            		front2.scaleXProperty().setValue(1);
+            		back2.scaleXProperty().setValue(1);
+            		front3.scaleXProperty().setValue(1);
+            		back3.scaleXProperty().setValue(1);
+            		front4.scaleXProperty().setValue(1);
+            		back4.scaleXProperty().setValue(1);
+            		front5.scaleXProperty().setValue(1);
+            		back5.scaleXProperty().setValue(1);
+            		front6.scaleXProperty().setValue(1);
+            		back6.scaleXProperty().setValue(1);
+            		front7.scaleXProperty().setValue(1);
+            		back7.scaleXProperty().setValue(1);
+            		
+            		//reset all button states as well
+            		next_game.setVisible(false);
+            		flip_next.setVisible(true);
+            		final_score.setVisible(false);
 	            	
 	            	// adjust the number of visible cards
 	            	// as well as the selection options on top
@@ -625,6 +672,14 @@ public class Main extends Application {
 	    	    			timeline.getKeyFrames().add(frame2card4);
 	            		}
 	            		if(cardsFlipped == 2) {
+	            			if(game == MAX_GAMES){
+	            				final_score.setVisible(true);
+	            				flip_next.setVisible(false);
+	            				next_game.setVisible(false);
+	            			} else {
+		    	            	flip_next.setVisible(false);
+		    	            	next_game.setVisible(true);
+	            			}
 	    	            	color_choice5.setVisible(false);
 	    	            	shape_choice5.setVisible(false);
 	    	    			timeline.getKeyFrames().add(frame0card5);
@@ -663,6 +718,14 @@ public class Main extends Application {
 	    	    			timeline.getKeyFrames().add(frame2card6);
 	            		}
 	            		if(cardsFlipped == 4) {
+	            			if(game == MAX_GAMES){
+	            				final_score.setVisible(true);
+	            				flip_next.setVisible(false);
+	            				next_game.setVisible(false);
+	            			} else {
+		    	            	flip_next.setVisible(false);
+		    	            	next_game.setVisible(true);
+	            			}
 	    	            	color_choice7.setVisible(false);
 	    	            	shape_choice7.setVisible(false);
 	    	    			timeline.getKeyFrames().add(frame0card7);
@@ -715,9 +778,17 @@ public class Main extends Application {
 	    	    			timeline.getKeyFrames().add(frame2card6);
 	            		}
 	            		if(cardsFlipped == 6) {
+	            			if(game == MAX_GAMES){
+	            				final_score.setVisible(true);
+	            				flip_next.setVisible(false);
+	            				next_game.setVisible(false);
+	            			} else {
+		    	            	flip_next.setVisible(false);
+		    	            	next_game.setVisible(true);
+	            			}
 	    	            	color_choice7.setVisible(false);
 	    	            	shape_choice7.setVisible(false);
-	    	    			timeline.getKeyFrames().add(frame0card7);
+	    	            	timeline.getKeyFrames().add(frame0card7);
 	    	    			timeline.getKeyFrames().add(frame1card7);
 	    	    			timeline.getKeyFrames().add(frame2card7);
 	            		}
@@ -728,6 +799,96 @@ public class Main extends Application {
 	            }
 			});
 			
+			// start a new game
+						next_game.setOnAction(new EventHandler<ActionEvent>() {
+				            @Override 
+				            public void handle(ActionEvent event) {
+				      
+				            	// new game has begun, but save old score
+				            	cardsFlipped = 0;
+				            	game++;
+				            	game_number.setText("Game: " + game);
+				            	
+				            	// undo any previously played animations ("unflip" cards)
+			            		front1.scaleXProperty().setValue(1);
+			            		back1.scaleXProperty().setValue(1);
+			            		front2.scaleXProperty().setValue(1);
+			            		back2.scaleXProperty().setValue(1);
+			            		front3.scaleXProperty().setValue(1);
+			            		back3.scaleXProperty().setValue(1);
+			            		front4.scaleXProperty().setValue(1);
+			            		back4.scaleXProperty().setValue(1);
+			            		front5.scaleXProperty().setValue(1);
+			            		back5.scaleXProperty().setValue(1);
+			            		front6.scaleXProperty().setValue(1);
+			            		back6.scaleXProperty().setValue(1);
+			            		front7.scaleXProperty().setValue(1);
+			            		back7.scaleXProperty().setValue(1);
+			            		
+				            	
+				            	// adjust the number of visible cards
+				            	// as well as the selection options on top
+				            	if(numberOfShapes == 3) {
+				            		card1stack.setVisible(false);
+				            		card2stack.setVisible(false);
+				            		card3stack.setVisible(true);
+				            		color_choice3.setVisible(true);
+				            		shape_choice3.setVisible(true);
+				            		card4stack.setVisible(true);
+				            		color_choice4.setVisible(true);
+				            		shape_choice4.setVisible(true);
+				            		card5stack.setVisible(true);
+				            		color_choice5.setVisible(true);
+				            		shape_choice5.setVisible(true);
+				            		card6stack.setVisible(false);
+				            		card7stack.setVisible(false);
+				            	} else if (numberOfShapes == 5) {
+				            		card1stack.setVisible(true);
+				            		color_choice1.setVisible(true);
+				            		shape_choice1.setVisible(true);
+				            		card2stack.setVisible(true);
+				            		color_choice2.setVisible(true);
+				            		shape_choice2.setVisible(true);
+				            		card3stack.setVisible(false);
+				            		card4stack.setVisible(true);
+				            		color_choice4.setVisible(true);
+				            		shape_choice4.setVisible(true);
+				            		card5stack.setVisible(false);
+				            		card6stack.setVisible(true);
+				            		color_choice6.setVisible(true);
+				            		shape_choice6.setVisible(true);
+				            		card7stack.setVisible(true);
+				            		color_choice7.setVisible(true);
+				            		shape_choice7.setVisible(true);
+				            	} else {
+				            		card1stack.setVisible(true);
+				            		color_choice1.setVisible(true);
+				            		shape_choice1.setVisible(true);
+				            		card2stack.setVisible(true);
+				            		color_choice2.setVisible(true);
+				            		shape_choice2.setVisible(true);
+				            		card3stack.setVisible(true);
+				            		color_choice3.setVisible(true);
+				            		shape_choice3.setVisible(true);
+				            		card4stack.setVisible(true);
+				            		color_choice4.setVisible(true);
+				            		shape_choice4.setVisible(true);
+				            		card5stack.setVisible(true);
+				            		color_choice5.setVisible(true);
+				            		shape_choice5.setVisible(true);
+				            		card6stack.setVisible(true);
+				            		color_choice6.setVisible(true);
+				            		shape_choice6.setVisible(true);
+				            		card7stack.setVisible(true);
+				            		color_choice7.setVisible(true);
+				            		shape_choice7.setVisible(true);
+				            	}
+				            	
+				            	// new game began, display next_flip button
+				            	flip_next.setVisible(true);
+				            	next_game.setVisible(false);
+				            }
+				        });
 			
 			
 			// DISPLAY RESULTS
