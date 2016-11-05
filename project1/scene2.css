@@ -12,10 +12,14 @@
 }
 
 .card {
-	-fx-background-image: url("card_back.jpg");
+	/* -fx-background-image: url("card_back.jpg");
 	-fx-background-repeat: stretch;
 	-fx-background-size: 120px 160px;
-	-fx-alignment: center center;
+	-fx-alignment: center center;*/
+}
+
+.front {
+	-fx-fill: white;
 }
 
 .choice {

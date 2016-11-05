@@ -1,21 +1,31 @@
 package project1;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.ScaleTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.beans.property.DoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 
 
 
@@ -171,8 +181,9 @@ public class Main extends Application {
 				
 			HBox row2 = new HBox();
 				
+				StackPane card1stack = new StackPane();
+			
 				VBox card1 = new VBox(50);
-					
 					final ComboBox<String> color_choice1 = new ComboBox<String>(color_options);
 					color_choice1.getStyleClass().add("choice");
 					color_choice1.setMinWidth(110);
@@ -192,6 +203,15 @@ public class Main extends Application {
 					card1.setPadding(new Insets(20, 0, 20, 0));
 					card1.getChildren().addAll(color_choice1, shape_choice1);
 					card1.getStyleClass().add("card");
+					
+				ImageView back1 = new ImageView(getClass().getResource("card_back.jpg").toExternalForm());
+				back1.setFitHeight(160);
+				back1.setFitWidth(120);
+				
+				Rectangle front1 = new Rectangle(0.012, 160);
+					front1.getStyleClass().add("front");
+					
+				card1stack.getChildren().addAll(back1, card1, front1);
 				
 				VBox card2 = new VBox(50);
 					
@@ -216,7 +236,7 @@ public class Main extends Application {
 					card2.getChildren().addAll(color_choice2, shape_choice2);
 
 					
-				row2.getChildren().addAll(card1, card2);
+				row2.getChildren().addAll(card1stack, card2);
 				row2.getStyleClass().add("card_row");
 			
 				
@@ -389,30 +409,61 @@ public class Main extends Application {
 	            	cardsFlipped = 0;
 	            	
 	            	// adjust the number of visible cards
+	            	// as well as the selection options on top
 	            	if(numberOfShapes == 3) {
 	            		card1.setVisible(false);
 	            		card2.setVisible(false);
 	            		card3.setVisible(true);
+	            		color_choice3.setVisible(true);
+	            		shape_choice3.setVisible(true);
 	            		card4.setVisible(true);
+	            		color_choice4.setVisible(true);
+	            		shape_choice4.setVisible(true);
 	            		card5.setVisible(true);
+	            		color_choice5.setVisible(true);
+	            		shape_choice5.setVisible(true);
 	            		card6.setVisible(false);
 	            		card7.setVisible(false);
 	            	} else if (numberOfShapes == 5) {
 	            		card1.setVisible(true);
+	            		color_choice1.setVisible(true);
+	            		shape_choice1.setVisible(true);
 	            		card2.setVisible(true);
+	            		color_choice2.setVisible(true);
+	            		shape_choice2.setVisible(true);
 	            		card3.setVisible(false);
 	            		card4.setVisible(true);
+	            		color_choice4.setVisible(true);
+	            		shape_choice4.setVisible(true);
 	            		card5.setVisible(false);
 	            		card6.setVisible(true);
+	            		color_choice6.setVisible(true);
+	            		shape_choice6.setVisible(true);
 	            		card7.setVisible(true);
+	            		color_choice7.setVisible(true);
+	            		shape_choice7.setVisible(true);
 	            	} else {
 	            		card1.setVisible(true);
+	            		color_choice1.setVisible(true);
+	            		shape_choice1.setVisible(true);
 	            		card2.setVisible(true);
+	            		color_choice2.setVisible(true);
+	            		shape_choice2.setVisible(true);
 	            		card3.setVisible(true);
+	            		color_choice3.setVisible(true);
+	            		shape_choice3.setVisible(true);
 	            		card4.setVisible(true);
+	            		color_choice4.setVisible(true);
+	            		shape_choice4.setVisible(true);
 	            		card5.setVisible(true);
+	            		color_choice5.setVisible(true);
+	            		shape_choice5.setVisible(true);
 	            		card6.setVisible(true);
+	            		color_choice6.setVisible(true);
+	            		shape_choice6.setVisible(true);
 	            		card7.setVisible(true);
+	            		color_choice7.setVisible(true);
+	            		shape_choice7.setVisible(true);
 	            	}
 	            }
 	        });
@@ -421,6 +472,8 @@ public class Main extends Application {
 			flip_next.setOnAction(new EventHandler<ActionEvent>() {
 	            @Override 
 	            public void handle(ActionEvent event) {    
+	            	
+	            	
 	            	if(numberOfShapes == 3) {
 	            		if(cardsFlipped == 0) {
 	    	            	color_choice3.setVisible(false);
@@ -440,6 +493,42 @@ public class Main extends Application {
 	            		if(cardsFlipped == 0) {
 	    	            	color_choice1.setVisible(false);
 	    	            	shape_choice1.setVisible(false);
+	            			
+	    	            	DoubleProperty scale_back = back1.scaleXProperty();
+	    	            	DoubleProperty scale_front = front1.scaleXProperty();
+	    	            	
+	    	            	KeyFrame frame0card1 = new KeyFrame(
+	    	    					Duration.ZERO,
+	    	    					new KeyValue(scale_back, 1.0),
+	    	    					new KeyValue(scale_front, 1.0));
+
+	    	    			KeyFrame frame1card1 = new KeyFrame(
+	    	    					new Duration(1000.0),
+	    	    					new KeyValue(scale_back, 0.01),
+	    	    					new KeyValue(scale_front, 1.0));
+
+	    	    			
+	    	    			KeyFrame frame2card1 = new KeyFrame(
+	    	    					new Duration(2000.0),
+	    	    					new KeyValue(scale_back, 0.01),
+	    	    					new KeyValue(scale_front, 10000.0));
+	    	    			
+	    	    			Timeline timeline = new Timeline();
+	    	    			timeline.getKeyFrames().add(frame0card1);
+	    	    			timeline.getKeyFrames().add(frame1card1);
+	    	    			timeline.getKeyFrames().add(frame2card1);
+	    	    			timeline.play();
+
+	    	            	/*
+	    	            	ScaleTransition shrink_back = new ScaleTransition(Duration.millis(2000), back1);
+	            			shrink_back.setByX(0.001f);
+	            			shrink_back.play();
+	            			ScaleTransition grow_front = new ScaleTransition(Duration.millis(2000), front1);
+	            			grow_front.setByX(10000);
+	            			SequentialTransition st = new SequentialTransition();
+	            			st.getChildren().addAll(shrink_back, grow_front);
+	            			st.play();
+	            			*/
 	            		}
 	            		if(cardsFlipped == 1) {
 	    	            	color_choice2.setVisible(false);
