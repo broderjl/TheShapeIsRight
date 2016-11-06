@@ -2,7 +2,6 @@
 	-fx-background-image: url("table.jpg");
 	-fx-background-repeat: stretch;
 	-fx-background-size: 900 700;
-	-fx-alignment: center center;
 }
 
 .button {
@@ -25,5 +24,6 @@
 
 .label {
 	-fx-text-fill: white;
+	-fx-font-size: 14px;
 	-fx-padding: 20;
 }

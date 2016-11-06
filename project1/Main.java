@@ -1,6 +1,8 @@
 package project1;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -14,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 
 
 
@@ -103,11 +106,33 @@ public class Main extends Application {
 				System.out.println(numberOfShapes);
 			});
 			
+			// Handling for color selections
+			colorSelectionListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+			colorSelectionListView.getSelectionModel().selectedItemProperty().addListener(
+					new ChangeListener<String>() {
+						@Override
+						public void changed(ObservableValue<? extends String> observableValue,
+								String oldValue, String newValue) {
+							System.out.println(colorSelectionListView.getSelectionModel().getSelectedItems().toString());
+						}
+					});
+			
+			// Handling for shape selection
+			shapeSelectionListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+			shapeSelectionListView.getSelectionModel().selectedItemProperty().addListener(
+					new ChangeListener<String>() {
+						@Override
+						public void changed(ObservableValue<? extends String> observableValue,
+								String oldValue, String newValue) {
+							System.out.println(shapeSelectionListView.getSelectionModel().getSelectedItems().toString());
+						}
+					});
+			
 			/*
 			 * Adding the nodes to the scene
 			 */
 			
-			VBox main_screen = new VBox(20);
+			VBox main_screen = new VBox();
 			main_screen.getStyleClass().add("background");
 			main_screen.getChildren().addAll(label1, play_button, listViewsHBox, selectionBox);
 			scene1 = new Scene(main_screen, 900, 700);
