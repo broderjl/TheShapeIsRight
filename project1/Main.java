@@ -23,6 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -43,6 +44,9 @@ public class Main extends Application {
 	static int game = 1;
 	static ObservableList<String> shape_options = FXCollections.observableArrayList();
 	static ObservableList<String> color_options = FXCollections.observableArrayList();
+	String[] actual_color= {"", "", "", "", "", "", "", ""};
+	String[] actual_shape= {"", "", "", "", "", "", "", ""};
+	Shape[] shapes = new Shape[8];
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -168,20 +172,6 @@ public class Main extends Application {
 			
 			
 			// SET UP VISUALS
-			
-			//Jack, you should create these lists based on what's selected in the main menu
-//			ObservableList<String> color_options = 
-//				    FXCollections.observableArrayList(
-//				        "Color 1",
-//				        "Color 2",
-//				        "Color 3"
-//				    );
-//			ObservableList<String> shape_options = 
-//				    FXCollections.observableArrayList(
-//				        "Shape 1",
-//				        "Shape 2",
-//				        "Shape 3"
-//				    );
 		
 			VBox game_screen = new VBox();
 			game_screen.setSpacing(20);
@@ -426,6 +416,7 @@ public class Main extends Application {
 						back7.setFitWidth(120);
 					Rectangle front7 = new Rectangle(0.012, 160);
 						front7.getStyleClass().add("front");
+						
 				card7stack.getChildren().addAll(back7, card7, front7);
 				
 				row4.getChildren().addAll(card6stack, card7stack);
@@ -693,6 +684,12 @@ public class Main extends Application {
 	    			
 	            	if(numberOfShapes == 3) {
 	            		if(cardsFlipped == 0) {
+	            			if(color_choice3.getSelectionModel().getSelectedItem() == actual_color[3] &&
+	            				shape_choice3.getSelectionModel().getSelectedItem() == actual_shape[3])
+	            			{
+	            				points++;
+	        	            	score.setText("Points: " + points);
+	            			}
 	    	            	color_choice3.setVisible(false);
 	    	            	shape_choice3.setVisible(false);
 	    	    			timeline.getKeyFrames().add(frame0card3);
