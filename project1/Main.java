@@ -55,6 +55,7 @@ public class Main extends Application {
 			Label label1 = new Label("Main Menu:");
 			Button play_button = new Button("Play Game");
 			play_button.getStyleClass().add("button");
+			play_button.setAlignment(Pos.BOTTOM_RIGHT);
 			
 			
 			/*
@@ -63,47 +64,51 @@ public class Main extends Application {
 			 */
 			
 			// Label for selection
-			Label selectionLabel = new Label("Number of Shapes You Would Like To Play With:");
-			selectionLabel.getStyleClass().add("label");
-
-			// Observable list of possible side number selections
-			ObservableList<String> numberOfShapesList =
-					FXCollections.observableArrayList(
-							"3", "5", "7", "9");
-			
-			// Create ComboBox for selecting the number of shapes
-			ComboBox<String> numberOfShapesBox = new ComboBox<String>(numberOfShapesList);			
 			VBox selectionBox = new VBox();
-			selectionBox.getChildren().addAll(selectionLabel, numberOfShapesBox);
+			
+				Label selectionLabel = new Label("Number of Shapes You Would Like To Play With:");
+				selectionLabel.getStyleClass().add("label");
+
+				// Observable list of possible side number selections
+				ObservableList<String> numberOfShapesList =
+						FXCollections.observableArrayList(
+								"3", "5", "7");
+				
+				// Create ComboBox for selecting the number of shapes
+				ComboBox<String> numberOfShapesBox = new ComboBox<String>(numberOfShapesList);		
+				selectionBox.getChildren().addAll(selectionLabel, numberOfShapesBox);
+			
+			
 			
 			/*
-			 * 
 			 * ListView for selecting colors and shapes to 
-			 * be used for the playing of the game
-			 * 
+			 * be used for the playing of the game 
 			 */
 			// HBox to hold the list views 
 			HBox listViewsHBox = new HBox();
 			
-			// Observable list and list view for selecting colors
-			ObservableList<String> colorSelectionList = FXCollections.observableArrayList(
-					"Color1", "Color2", "Color3");
-			ListView<String> colorSelectionListView = new ListView<String>(colorSelectionList);
-			colorSelectionListView.setPrefHeight(80);
-			colorSelectionListView.setPrefWidth(100);
+				// Observable list and list view for selecting colors
+				ObservableList<String> colorSelectionList = FXCollections.observableArrayList(
+						"Color1", "Color2", "Color3");
+				ListView<String> colorSelectionListView = new ListView<String>(colorSelectionList);
+				colorSelectionListView.setPrefHeight(80);
+				colorSelectionListView.setPrefWidth(100);
 			
-			// Observable list and list view for selecting shapes
-			ObservableList<String> shapeSelectionList = FXCollections.observableArrayList(
+				// Observable list and list view for selecting shapes
+				ObservableList<String> shapeSelectionList = FXCollections.observableArrayList(
 					"Shape1", "Shape2", "Shape3");
-			ListView<String> shapeSelectionListView = new ListView<String>(shapeSelectionList);
-			shapeSelectionListView.setPrefHeight(80);
-			shapeSelectionListView.setPrefWidth(100);
+				ListView<String> shapeSelectionListView = new ListView<String>(shapeSelectionList);
+				shapeSelectionListView.setPrefHeight(80);
+				shapeSelectionListView.setPrefWidth(100);
 			
-			listViewsHBox.getChildren().add(colorSelectionListView);
-			listViewsHBox.getChildren().add(shapeSelectionListView);
-			listViewsHBox.getStyleClass().add("listViewsHBox");
+				listViewsHBox.getChildren().add(colorSelectionListView);
+				listViewsHBox.getChildren().add(shapeSelectionListView);
+				listViewsHBox.getStyleClass().add("listViewsHBox");
 			
 
+			
+			
+			
 			
 			/*
 			 * Event Handling
@@ -120,8 +125,6 @@ public class Main extends Application {
 			// as it is clicked, which affects elements created in scene 2.
 			
 
-			
-			
 			// Handling for color selections
 			colorSelectionListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 			colorSelectionListView.getSelectionModel().getSelectedItems().addListener(
