@@ -41,7 +41,7 @@ public class Main extends Application {
 	Stage window;
 	Scene scene1, scene2;
 	static final int MAX_GAMES = 3;
-	static int numberOfShapes;
+	static int numberOfShapes = -1;
 	static int cardsFlipped = 0;
 	static int points = 0;
 	static int game = 1;
@@ -59,10 +59,12 @@ public class Main extends Application {
 			
 			// main screen (Jack)
 			
-			Label label1 = new Label("Main Menu:");
+			Label label1 = new Label("The Shape Is Right!");
+			label1.getStyleClass().add("title");
+			
 			Button play_button = new Button("Play Game");
 			play_button.getStyleClass().add("button");
-			play_button.setAlignment(Pos.BOTTOM_RIGHT);
+			
 			
 			
 			/*
@@ -72,6 +74,9 @@ public class Main extends Application {
 			
 			// Label for selection
 			VBox selectionBox = new VBox();
+			
+				selectionBox.setAlignment(Pos.CENTER);
+				selectionBox.setSpacing(2);
 			
 				Label selectionLabel = new Label("Number of Shapes You Would Like To Play With:");
 				selectionLabel.getStyleClass().add("label");
@@ -111,6 +116,11 @@ public class Main extends Application {
 				listViewsHBox.getChildren().add(colorSelectionListView);
 				listViewsHBox.getChildren().add(shapeSelectionListView);
 				listViewsHBox.getStyleClass().add("listViewsHBox");
+				
+			Label badInputLabel = new Label("Please complete your selections");
+			badInputLabel.getStyleClass().add("badInput");
+			badInputLabel.setStyle("-fx-text-fill: red");
+			badInputLabel.setVisible(true);
 			
 
 			
@@ -125,6 +135,12 @@ public class Main extends Application {
 			numberOfShapesBox.setOnAction((event) -> {
 				String selectedNumber = numberOfShapesBox.getSelectionModel().getSelectedItem();
 				numberOfShapes = Integer.parseInt(selectedNumber);
+				if (numberOfShapes == -1 || color_options.size() == 0 || shape_options.size() == 0)
+				{
+					badInputLabel.setVisible(true);
+				}
+				else
+					badInputLabel.setVisible(false);
 				//System.out.println(numberOfShapes);
 			});
 			
@@ -138,10 +154,14 @@ public class Main extends Application {
 					new ListChangeListener<String>() {
 						@Override
 						public void onChanged(ListChangeListener.Change<? extends String> c) {
-							System.out.println(colorSelectionListView.getSelectionModel().getSelectedItems().toString());
 							color_options.clear();
 							color_options.addAll(colorSelectionListView.getSelectionModel().getSelectedItems());
-							System.out.println(color_options.toString());
+							if (numberOfShapes == -1 || color_options.size() == 0 || shape_options.size() == 0)
+							{
+								badInputLabel.setVisible(true);
+							}
+							else
+								badInputLabel.setVisible(false);
 						}
 					});
 			
@@ -153,6 +173,12 @@ public class Main extends Application {
 						public void onChanged(ListChangeListener.Change<? extends String> c) {
 							shape_options.clear();
 							shape_options.addAll(shapeSelectionListView.getSelectionModel().getSelectedItems());
+							if (numberOfShapes == -1 || color_options.size() == 0 || shape_options.size() == 0)
+							{
+								badInputLabel.setVisible(true);
+							}
+							else
+								badInputLabel.setVisible(false);
 						}
 					});
 			
@@ -161,8 +187,11 @@ public class Main extends Application {
 			 */
 			
 			VBox main_screen = new VBox();
+			
+			main_screen.setAlignment(Pos.CENTER);
+			main_screen.setSpacing(30);
 			main_screen.getStyleClass().add("background");
-			main_screen.getChildren().addAll(label1, listViewsHBox, selectionBox, play_button);
+			main_screen.getChildren().addAll(label1, listViewsHBox, selectionBox, play_button, badInputLabel);
 			scene1 = new Scene(main_screen, 900, 700);
 
 			
@@ -499,169 +528,177 @@ public class Main extends Application {
 			
 			// set up cards and start game screen
 			play_button.setOnAction(new EventHandler<ActionEvent>() {
-	            @Override 
-	            public void handle(ActionEvent event) {
-	                // move to next scene, where game play occurs
-	            	window.setScene(scene2);
-	            	
-	            	// "deal out the cards"
-	            	for(int i = 0; i < 8; i++)
-	            	{
-	            		actual_color[i] = color_options.get( (int)(Math.random() * (color_options.size() - 1)) );
-	            		System.out.println(i + " " + actual_color[i]);
-	            	}
-	            	
-	            	for(int i = 0; i < 8; i++)
-	            	{
-	            		actual_shape[i] = shape_options.get( (int)(Math.random() * (shape_options.size() - 1)) );
-	            		System.out.println(i + " " + actual_shape[i]);
-	            	}
-	            	
-	            	for(int i = 0; i < 0; i++)
-	            	{
-	            		String shape = actual_shape[i];
-	            		String color = actual_color[i];
-	            		
-	            		switch (shape.toLowerCase()) {
-	            			case "circle":
-	            				shapes[i] = new Circle();
-	            				((Circle) shapes[i]).setRadius(10);
-	            				break;
-	            				
-	            			case "triangle":
-	            				shapes[i] = new Polygon(3);
-	            				break;
-	            				
-	            			case "square":
-	            				shapes[i] = new Polygon(4);
-	            				break;
-	            				
-	            			case "rectangle":
-	            				shapes[i] = new Polygon(4);
-	            				break;
-	            				
-	            			case "pentagon":
-	            				shapes[i] = new Polygon(5);
-	            				break;
-	            				
-	            			case "hexagon":
-	            				shapes[i] = new Polygon(6);
-	            				break;
-	            		}
-	            		switch (color.toLowerCase()) {
-	            			case "red":
-	            				shapes[i].setFill(Color.RED);
-	            				break;
-	            				
-	            			case "orange":
-	            				shapes[i].setFill(Color.ORANGE);
-	            				break;
-	            				
-	            			case "yellow":
-	            				shapes[i].setFill(Color.YELLOW);
-	            				break;
-	            				
-	            			case "green":
-	            				shapes[i].setFill(Color.GREEN);
-	            				break;
-	            				
-	            			case "blue":
-	            				shapes[i].setFill(Color.BLUE);
-	            				break;
-	            				
-	            			case "purple":
-	            				shapes[i].setFill(Color.PURPLE);
-	            				break;
-	            		}
-	            	}
-	            	
-	            	// reset all variables, since new game began
-	            	cardsFlipped = 0;
-	            	points = 0;
-	            	score.setText("Points: " + points);
-	            	game = 1;
-	            	game_number.setText("Game: " + game);
-	            	
-	            	// undo any previously played animations ("unflip" cards)
-            		front1.scaleXProperty().setValue(1);
-            		back1.scaleXProperty().setValue(1);
-            		front2.scaleXProperty().setValue(1);
-            		back2.scaleXProperty().setValue(1);
-            		front3.scaleXProperty().setValue(1);
-            		back3.scaleXProperty().setValue(1);
-            		front4.scaleXProperty().setValue(1);
-            		back4.scaleXProperty().setValue(1);
-            		front5.scaleXProperty().setValue(1);
-            		back5.scaleXProperty().setValue(1);
-            		front6.scaleXProperty().setValue(1);
-            		back6.scaleXProperty().setValue(1);
-            		front7.scaleXProperty().setValue(1);
-            		back7.scaleXProperty().setValue(1);
-            		
-            		//reset all button states as well
-            		next_game.setVisible(false);
-            		flip_next.setVisible(true);
-            		final_score.setVisible(false);
-	            	
-	            	// adjust the number of visible cards
-	            	// as well as the selection options on top
-	            	if(numberOfShapes == 3) {
-	            		card1stack.setVisible(false);
-	            		card2stack.setVisible(false);
-	            		card3stack.setVisible(true);
-	            		color_choice3.setVisible(true);
-	            		shape_choice3.setVisible(true);
-	            		card4stack.setVisible(true);
-	            		color_choice4.setVisible(true);
-	            		shape_choice4.setVisible(true);
-	            		card5stack.setVisible(true);
-	            		color_choice5.setVisible(true);
-	            		shape_choice5.setVisible(true);
-	            		card6stack.setVisible(false);
-	            		card7stack.setVisible(false);
-	            	} else if (numberOfShapes == 5) {
-	            		card1stack.setVisible(true);
-	            		color_choice1.setVisible(true);
-	            		shape_choice1.setVisible(true);
-	            		card2stack.setVisible(true);
-	            		color_choice2.setVisible(true);
-	            		shape_choice2.setVisible(true);
-	            		card3stack.setVisible(false);
-	            		card4stack.setVisible(true);
-	            		color_choice4.setVisible(true);
-	            		shape_choice4.setVisible(true);
-	            		card5stack.setVisible(false);
-	            		card6stack.setVisible(true);
-	            		color_choice6.setVisible(true);
-	            		shape_choice6.setVisible(true);
-	            		card7stack.setVisible(true);
-	            		color_choice7.setVisible(true);
-	            		shape_choice7.setVisible(true);
-	            	} else {
-	            		card1stack.setVisible(true);
-	            		color_choice1.setVisible(true);
-	            		shape_choice1.setVisible(true);
-	            		card2stack.setVisible(true);
-	            		color_choice2.setVisible(true);
-	            		shape_choice2.setVisible(true);
-	            		card3stack.setVisible(true);
-	            		color_choice3.setVisible(true);
-	            		shape_choice3.setVisible(true);
-	            		card4stack.setVisible(true);
-	            		color_choice4.setVisible(true);
-	            		shape_choice4.setVisible(true);
-	            		card5stack.setVisible(true);
-	            		color_choice5.setVisible(true);
-	            		shape_choice5.setVisible(true);
-	            		card6stack.setVisible(true);
-	            		color_choice6.setVisible(true);
-	            		shape_choice6.setVisible(true);
-	            		card7stack.setVisible(true);
-	            		color_choice7.setVisible(true);
-	            		shape_choice7.setVisible(true);
-	            	}
-	            }
-	        });
+				@Override 
+				public void handle(ActionEvent event) {
+					if (numberOfShapes == -1 || color_options.size() == 0 || shape_options.size() == 0)
+					{
+						badInputLabel.setVisible(true);
+					}
+					else{
+						badInputLabel.setVisible(false);
+
+						// move to next scene, where game play occurs
+						window.setScene(scene2);
+
+						// "deal out the cards"
+						for(int i = 0; i < 8; i++)
+						{
+							actual_color[i] = color_options.get( (int)(Math.random() * (color_options.size() - 1)) );
+							System.out.println(i + " " + actual_color[i]);
+						}
+
+						for(int i = 0; i < 8; i++)
+						{
+							actual_shape[i] = shape_options.get( (int)(Math.random() * (shape_options.size() - 1)) );
+							System.out.println(i + " " + actual_shape[i]);
+						}
+
+						for(int i = 0; i < 0; i++)
+						{
+							String shape = actual_shape[i];
+							String color = actual_color[i];
+
+							switch (shape.toLowerCase()) {
+							case "circle":
+								shapes[i] = new Circle();
+								((Circle) shapes[i]).setRadius(10);
+								break;
+
+							case "triangle":
+								shapes[i] = new Polygon(3);
+								break;
+
+							case "square":
+								shapes[i] = new Polygon(4);
+								break;
+
+							case "rectangle":
+								shapes[i] = new Polygon(4);
+								break;
+
+							case "pentagon":
+								shapes[i] = new Polygon(5);
+								break;
+
+							case "hexagon":
+								shapes[i] = new Polygon(6);
+								break;
+							}
+							switch (color.toLowerCase()) {
+							case "red":
+								shapes[i].setFill(Color.RED);
+								break;
+
+							case "orange":
+								shapes[i].setFill(Color.ORANGE);
+								break;
+
+							case "yellow":
+								shapes[i].setFill(Color.YELLOW);
+								break;
+
+							case "green":
+								shapes[i].setFill(Color.GREEN);
+								break;
+
+							case "blue":
+								shapes[i].setFill(Color.BLUE);
+								break;
+
+							case "purple":
+								shapes[i].setFill(Color.PURPLE);
+								break;
+							}
+						}
+
+						// reset all variables, since new game began
+						cardsFlipped = 0;
+						points = 0;
+						score.setText("Points: " + points);
+						game = 1;
+						game_number.setText("Game: " + game);
+
+						// undo any previously played animations ("unflip" cards)
+						front1.scaleXProperty().setValue(1);
+						back1.scaleXProperty().setValue(1);
+						front2.scaleXProperty().setValue(1);
+						back2.scaleXProperty().setValue(1);
+						front3.scaleXProperty().setValue(1);
+						back3.scaleXProperty().setValue(1);
+						front4.scaleXProperty().setValue(1);
+						back4.scaleXProperty().setValue(1);
+						front5.scaleXProperty().setValue(1);
+						back5.scaleXProperty().setValue(1);
+						front6.scaleXProperty().setValue(1);
+						back6.scaleXProperty().setValue(1);
+						front7.scaleXProperty().setValue(1);
+						back7.scaleXProperty().setValue(1);
+
+						//reset all button states as well
+						next_game.setVisible(false);
+						flip_next.setVisible(true);
+						final_score.setVisible(false);
+
+						// adjust the number of visible cards
+						// as well as the selection options on top
+						if(numberOfShapes == 3) {
+							card1stack.setVisible(false);
+							card2stack.setVisible(false);
+							card3stack.setVisible(true);
+							color_choice3.setVisible(true);
+							shape_choice3.setVisible(true);
+							card4stack.setVisible(true);
+							color_choice4.setVisible(true);
+							shape_choice4.setVisible(true);
+							card5stack.setVisible(true);
+							color_choice5.setVisible(true);
+							shape_choice5.setVisible(true);
+							card6stack.setVisible(false);
+							card7stack.setVisible(false);
+						} else if (numberOfShapes == 5) {
+							card1stack.setVisible(true);
+							color_choice1.setVisible(true);
+							shape_choice1.setVisible(true);
+							card2stack.setVisible(true);
+							color_choice2.setVisible(true);
+							shape_choice2.setVisible(true);
+							card3stack.setVisible(false);
+							card4stack.setVisible(true);
+							color_choice4.setVisible(true);
+							shape_choice4.setVisible(true);
+							card5stack.setVisible(false);
+							card6stack.setVisible(true);
+							color_choice6.setVisible(true);
+							shape_choice6.setVisible(true);
+							card7stack.setVisible(true);
+							color_choice7.setVisible(true);
+							shape_choice7.setVisible(true);
+						} else {
+							card1stack.setVisible(true);
+							color_choice1.setVisible(true);
+							shape_choice1.setVisible(true);
+							card2stack.setVisible(true);
+							color_choice2.setVisible(true);
+							shape_choice2.setVisible(true);
+							card3stack.setVisible(true);
+							color_choice3.setVisible(true);
+							shape_choice3.setVisible(true);
+							card4stack.setVisible(true);
+							color_choice4.setVisible(true);
+							shape_choice4.setVisible(true);
+							card5stack.setVisible(true);
+							color_choice5.setVisible(true);
+							shape_choice5.setVisible(true);
+							card6stack.setVisible(true);
+							color_choice6.setVisible(true);
+							shape_choice6.setVisible(true);
+							card7stack.setVisible(true);
+							color_choice7.setVisible(true);
+							shape_choice7.setVisible(true);
+						}
+					}
+				}
+			});
 			
 			
 			
