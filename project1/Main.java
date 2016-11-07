@@ -43,6 +43,8 @@ public class Main extends Application {
 	static int game = 1;
 	static ObservableList<String> shape_options = FXCollections.observableArrayList();
 	static ObservableList<String> color_options = FXCollections.observableArrayList();
+	String[] actual_color = {"", "", "", "", "", "", "", ""};
+	String[] actual_shape = {"", "", "", "", "", "", "", ""};
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -51,6 +53,10 @@ public class Main extends Application {
 			
 			
 			// main screen (Jack)
+			
+			
+			// actual_color3
+			// actual_shape3
 			
 			Label label1 = new Label("Main Menu:");
 			Button play_button = new Button("Play Game");
@@ -89,16 +95,16 @@ public class Main extends Application {
 			
 				// Observable list and list view for selecting colors
 				ObservableList<String> colorSelectionList = FXCollections.observableArrayList(
-						"Color1", "Color2", "Color3");
+						"Red", "Orange", "Yellow", "Green", "Blue", "Purple");
 				ListView<String> colorSelectionListView = new ListView<String>(colorSelectionList);
-				colorSelectionListView.setPrefHeight(80);
+				colorSelectionListView.setPrefHeight(155);
 				colorSelectionListView.setPrefWidth(100);
 			
 				// Observable list and list view for selecting shapes
 				ObservableList<String> shapeSelectionList = FXCollections.observableArrayList(
-					"Shape1", "Shape2", "Shape3");
+					"Circle", "Triangle", "Square", "Rectangle", "Pentagon", "Hexagon");
 				ListView<String> shapeSelectionListView = new ListView<String>(shapeSelectionList);
-				shapeSelectionListView.setPrefHeight(80);
+				shapeSelectionListView.setPrefHeight(155);
 				shapeSelectionListView.setPrefWidth(100);
 			
 				listViewsHBox.getChildren().add(colorSelectionListView);
@@ -496,6 +502,12 @@ public class Main extends Application {
 	            public void handle(ActionEvent event) {
 	                // move to next scene, where game play occurs
 	            	window.setScene(scene2);
+	            	
+	            	// "deal out the cards"
+	            	for(int i = 0; i < 8; i++)
+	            	{
+	            		
+	            	}
 	            	
 	            	// reset all variables, since new game began
 	            	cardsFlipped = 0;
