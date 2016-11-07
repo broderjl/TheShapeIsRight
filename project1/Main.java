@@ -529,23 +529,23 @@ public class Main extends Application {
 	            				break;
 	            				
 	            			case "triangle":
-	            				shapes[i] = new Polygon();
+	            				shapes[i] = new Polygon(3);
 	            				break;
 	            				
 	            			case "square":
-	            				shapes[i] = new Polygon();
+	            				shapes[i] = new Polygon(4);
 	            				break;
 	            				
 	            			case "rectangle":
-	            				shapes[i] = new Polygon();
+	            				shapes[i] = new Polygon(4);
 	            				break;
 	            				
 	            			case "pentagon":
-	            				shapes[i] = new Polygon();
+	            				shapes[i] = new Polygon(5);
 	            				break;
 	            				
 	            			case "hexagon":
-	            				shapes[i] = new Polygon();
+	            				shapes[i] = new Polygon(6);
 	            				break;
 	            		}
 	            		switch (color.toLowerCase()) {
