@@ -20,6 +20,7 @@ import javafx.util.Duration;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -47,6 +48,8 @@ public class Main extends Application {
 	static int game = 1;
 	static ObservableList<String> shape_options = FXCollections.observableArrayList();
 	static ObservableList<String> color_options = FXCollections.observableArrayList();
+	Double[] x = {0.0, 300.0, 500.0, 200.0, 400.0, 600.0, 100.0, 500.0}; // x coordinates of center of shape (not correct yet)
+	Double[] y = {0.0, 200.0, 200.0, 400.0, 400.0, 400.0, 600.0, 600.0}; // y coordinates of center of shape (not correct yet)
 	String[] actual_color = {"", "", "", "", "", "", "", ""};
 	String[] actual_shape = {"", "", "", "", "", "", "", ""};
 	Shape[] shapes = new Shape[8];
@@ -204,25 +207,18 @@ public class Main extends Application {
 			
 			
 			// SET UP VISUALS
-			
-			//Jack, you should create these lists based on what's selected in the main menu
-//			ObservableList<String> color_options = 
-//				    FXCollections.observableArrayList(
-//				        "Color 1",
-//				        "Color 2",
-//				        "Color 3"
-//				    );
-//			ObservableList<String> shape_options = 
-//				    FXCollections.observableArrayList(
-//				        "Shape 1",
-//				        "Shape 2",
-//				        "Shape 3"
-//				    );
 		
+			Pane layers = new Pane();
 			VBox game_screen = new VBox();
 			game_screen.setSpacing(20);
 			game_screen.getStyleClass().add("background");
-			scene2 = new Scene(game_screen, 900, 700);
+			game_screen.setMinWidth(900);
+			game_screen.setPrefWidth(900);
+			game_screen.setMaxWidth(900);
+			game_screen.setMinHeight(700);
+			game_screen.setPrefHeight(700);
+			game_screen.setMaxHeight(700);
+			scene2 = new Scene(layers, 900, 700);
 			
 
 
@@ -508,10 +504,10 @@ public class Main extends Application {
 					game_number.setPrefHeight(40);
 					game_number.setMaxHeight(40);
 					game_number.getStyleClass().add("display_info");
-
-			
+					
+					
 			game_screen.getChildren().addAll(row1, row2, row3, row4, row5);
-
+			layers.getChildren().addAll(game_screen);
 			
 			
 			// ADD EVENT HANDLING
@@ -543,17 +539,19 @@ public class Main extends Application {
 						// "deal out the cards"
 						for(int i = 0; i < 8; i++)
 						{
-							actual_color[i] = color_options.get( (int)(Math.random() * (color_options.size() - 1)) );
+							actual_color[i] = color_options.get((int)(Math.random() * color_options.size()) );
 							System.out.println(i + " " + actual_color[i]);
 						}
 
 						for(int i = 0; i < 8; i++)
 						{
-							actual_shape[i] = shape_options.get( (int)(Math.random() * (shape_options.size() - 1)) );
+							actual_shape[i] = shape_options.get((int)(Math.random() * shape_options.size()) );
 							System.out.println(i + " " + actual_shape[i]);
 						}
 
-						for(int i = 0; i < 0; i++)
+
+
+						for(int i = 0; i < 8; i++)
 						{
 							String shape = actual_shape[i];
 							String color = actual_color[i];
@@ -566,14 +564,28 @@ public class Main extends Application {
 
 							case "triangle":
 								shapes[i] = new Polygon(3);
+								((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+										-40.0, 0.0,
+									    40.0, 0.0,
+									    0.0, -70.0 });
 								break;
 
 							case "square":
 								shapes[i] = new Polygon(4);
+								((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+										-30.0, 30.0,
+									    30.0, 30.0,
+									    30.0, -30.0,
+									    -30.0, -30.0,});
 								break;
 
 							case "rectangle":
 								shapes[i] = new Polygon(4);
+								((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+										0.0, 0.0,
+									    0.0, 40.0,
+									    40.0, 80.0,
+									    0.0, 80.0,});
 								break;
 
 							case "pentagon":
@@ -584,6 +596,8 @@ public class Main extends Application {
 								shapes[i] = new Polygon(6);
 								break;
 							}
+							
+							//set shape color
 							switch (color.toLowerCase()) {
 							case "red":
 								shapes[i].setFill(Color.RED);
@@ -609,6 +623,13 @@ public class Main extends Application {
 								shapes[i].setFill(Color.PURPLE);
 								break;
 							}
+							
+							// set shape location
+							((Polygon) shapes[i]).relocate(x[i], y[i]);
+							
+							layers.getChildren().add(shapes[i]);
+							
+							System.out.println(shapes[i]);
 						}
 
 						// reset all variables, since new game began
