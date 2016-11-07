@@ -22,7 +22,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -45,6 +49,7 @@ public class Main extends Application {
 	static ObservableList<String> color_options = FXCollections.observableArrayList();
 	String[] actual_color = {"", "", "", "", "", "", "", ""};
 	String[] actual_shape = {"", "", "", "", "", "", "", ""};
+	Shape[] shapes = new Shape[8];
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -53,10 +58,6 @@ public class Main extends Application {
 			
 			
 			// main screen (Jack)
-			
-			
-			// actual_color3
-			// actual_shape3
 			
 			Label label1 = new Label("Main Menu:");
 			Button play_button = new Button("Play Game");
@@ -506,7 +507,72 @@ public class Main extends Application {
 	            	// "deal out the cards"
 	            	for(int i = 0; i < 8; i++)
 	            	{
+	            		actual_color[i] = color_options.get( (int)(Math.random() * (color_options.size() - 1)) );
+	            		System.out.println(i + " " + actual_color[i]);
+	            	}
+	            	
+	            	for(int i = 0; i < 8; i++)
+	            	{
+	            		actual_shape[i] = shape_options.get( (int)(Math.random() * (shape_options.size() - 1)) );
+	            		System.out.println(i + " " + actual_shape[i]);
+	            	}
+	            	
+	            	for(int i = 0; i < 0; i++)
+	            	{
+	            		String shape = actual_shape[i];
+	            		String color = actual_color[i];
 	            		
+	            		switch (shape.toLowerCase()) {
+	            			case "circle":
+	            				shapes[i] = new Circle();
+	            				((Circle) shapes[i]).setRadius(10);
+	            				break;
+	            				
+	            			case "triangle":
+	            				shapes[i] = new Polygon();
+	            				break;
+	            				
+	            			case "square":
+	            				shapes[i] = new Polygon();
+	            				break;
+	            				
+	            			case "rectangle":
+	            				shapes[i] = new Polygon();
+	            				break;
+	            				
+	            			case "pentagon":
+	            				shapes[i] = new Polygon();
+	            				break;
+	            				
+	            			case "hexagon":
+	            				shapes[i] = new Polygon();
+	            				break;
+	            		}
+	            		switch (color.toLowerCase()) {
+	            			case "red":
+	            				shapes[i].setFill(Color.RED);
+	            				break;
+	            				
+	            			case "orange":
+	            				shapes[i].setFill(Color.ORANGE);
+	            				break;
+	            				
+	            			case "yellow":
+	            				shapes[i].setFill(Color.YELLOW);
+	            				break;
+	            				
+	            			case "green":
+	            				shapes[i].setFill(Color.GREEN);
+	            				break;
+	            				
+	            			case "blue":
+	            				shapes[i].setFill(Color.BLUE);
+	            				break;
+	            				
+	            			case "purple":
+	            				shapes[i].setFill(Color.PURPLE);
+	            				break;
+	            		}
 	            	}
 	            	
 	            	// reset all variables, since new game began
