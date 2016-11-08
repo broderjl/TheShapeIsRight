@@ -48,8 +48,8 @@ public class Main extends Application {
 	static int game = 1;
 	static ObservableList<String> shape_options = FXCollections.observableArrayList();
 	static ObservableList<String> color_options = FXCollections.observableArrayList();
-	Double[] x = {0.0, 300.0, 500.0, 200.0, 400.0, 600.0, 100.0, 500.0}; // x coordinates of center of shape (not correct yet)
-	Double[] y = {0.0, 200.0, 200.0, 400.0, 400.0, 400.0, 600.0, 600.0}; // y coordinates of center of shape (not correct yet)
+	Double[] x = {0.0, 276.0, 546.0, 141.0, 411.0, 681.0, 276.0, 546.0}; // x coordinates of center of shape (not correct yet)
+	Double[] y = {0.0, 115.0, 115.0, 320.0, 320.0, 320.0, 515.0, 515.0}; // y coordinates of center of shape (not correct yet)
 	String[] actual_color = {"", "", "", "", "", "", "", ""};
 	String[] actual_shape = {"", "", "", "", "", "", "", ""};
 	Shape[] shapes = new Shape[8];
@@ -551,7 +551,7 @@ public class Main extends Application {
 
 
 
-						for(int i = 0; i < 8; i++)
+						for(int i = 1; i < 8; i++)
 						{
 							String shape = actual_shape[i];
 							String color = actual_color[i];
@@ -559,11 +559,11 @@ public class Main extends Application {
 							switch (shape.toLowerCase()) {
 							case "circle":
 								shapes[i] = new Circle();
-								((Circle) shapes[i]).setRadius(10);
+								((Circle) shapes[i]).setRadius(40);
 								break;
 
 							case "triangle":
-								shapes[i] = new Polygon(3);
+								shapes[i] = new Polygon();
 								((Polygon) shapes[i]).getPoints().addAll(new Double[]{
 										-40.0, 0.0,
 									    40.0, 0.0,
@@ -571,29 +571,29 @@ public class Main extends Application {
 								break;
 
 							case "square":
-								shapes[i] = new Polygon(4);
+								shapes[i] = new Polygon();
 								((Polygon) shapes[i]).getPoints().addAll(new Double[]{
-										-30.0, 30.0,
-									    30.0, 30.0,
-									    30.0, -30.0,
-									    -30.0, -30.0,});
+										-40.0, 40.0,
+									    40.0, 40.0,
+									    40.0, -40.0,
+									    -40.0, -40.0,});
 								break;
 
 							case "rectangle":
-								shapes[i] = new Polygon(4);
+								shapes[i] = new Polygon();
 								((Polygon) shapes[i]).getPoints().addAll(new Double[]{
-										0.0, 0.0,
-									    0.0, 40.0,
-									    40.0, 80.0,
-									    0.0, 80.0,});
+										40.0, 25.0,
+									    40.0, -25.0,
+									    -40.0, -25.0,
+									    -40.0, 25.0,});
 								break;
 
 							case "pentagon":
-								shapes[i] = new Polygon(5);
+								shapes[i] = new Polygon();
 								break;
 
 							case "hexagon":
-								shapes[i] = new Polygon(6);
+								shapes[i] = new Polygon();
 								break;
 							}
 							
@@ -625,7 +625,7 @@ public class Main extends Application {
 							}
 							
 							// set shape location
-							((Polygon) shapes[i]).relocate(x[i], y[i]);
+							shapes[i].relocate(x[i], y[i]);
 							
 							layers.getChildren().add(shapes[i]);
 							
@@ -642,18 +642,25 @@ public class Main extends Application {
 						// undo any previously played animations ("unflip" cards)
 						front1.scaleXProperty().setValue(1);
 						back1.scaleXProperty().setValue(1);
+						shapes[1].scaleXProperty().setValue(.00001);
 						front2.scaleXProperty().setValue(1);
 						back2.scaleXProperty().setValue(1);
+						shapes[2].scaleXProperty().setValue(.00001);
 						front3.scaleXProperty().setValue(1);
 						back3.scaleXProperty().setValue(1);
+						shapes[3].scaleXProperty().setValue(.00001);
 						front4.scaleXProperty().setValue(1);
 						back4.scaleXProperty().setValue(1);
+						shapes[4].scaleXProperty().setValue(.00001);
 						front5.scaleXProperty().setValue(1);
 						back5.scaleXProperty().setValue(1);
+						shapes[5].scaleXProperty().setValue(.00001);
 						front6.scaleXProperty().setValue(1);
 						back6.scaleXProperty().setValue(1);
+						shapes[6].scaleXProperty().setValue(.00001);
 						front7.scaleXProperty().setValue(1);
 						back7.scaleXProperty().setValue(1);
+						shapes[7].scaleXProperty().setValue(.00001);
 
 						//reset all button states as well
 						next_game.setVisible(false);
@@ -743,10 +750,12 @@ public class Main extends Application {
 	    			KeyFrame frame1card1 = new KeyFrame(
 	    					new Duration(500.0),
 	    					new KeyValue(back1.scaleXProperty(), 0.01),
-	    					new KeyValue(front1.scaleXProperty(), 1.0));		
+	    					new KeyValue(shapes[1].scaleXProperty(), 0.00001),
+	    					new KeyValue(front1.scaleXProperty(), 1.0));
 	    			KeyFrame frame2card1 = new KeyFrame(
 	    					new Duration(1000.0),
 	    					new KeyValue(back1.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[1].scaleXProperty(), 1.0),
 	    					new KeyValue(front1.scaleXProperty(), 10000.0));
 	            	
 					KeyFrame frame0card2 = new KeyFrame(
@@ -756,10 +765,12 @@ public class Main extends Application {
 	    			KeyFrame frame1card2 = new KeyFrame(
 	    					new Duration(500.0),
 	    					new KeyValue(back2.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[2].scaleXProperty(), 0.00001),
 	    					new KeyValue(front2.scaleXProperty(), 1.0));		
 	    			KeyFrame frame2card2 = new KeyFrame(
 	    					new Duration(1000.0),
 	    					new KeyValue(back2.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[2].scaleXProperty(), 1.0),
 	    					new KeyValue(front2.scaleXProperty(), 10000.0));
 	            	
 					KeyFrame frame0card3 = new KeyFrame(
@@ -769,10 +780,12 @@ public class Main extends Application {
 	    			KeyFrame frame1card3 = new KeyFrame(
 	    					new Duration(500.0),
 	    					new KeyValue(back3.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[3].scaleXProperty(), 0.00001),
 	    					new KeyValue(front3.scaleXProperty(), 1.0));		
 	    			KeyFrame frame2card3 = new KeyFrame(
 	    					new Duration(1000.0),
 	    					new KeyValue(back3.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[3].scaleXProperty(), 1.0),
 	    					new KeyValue(front3.scaleXProperty(), 10000.0));
 	            	
 					KeyFrame frame0card4 = new KeyFrame(
@@ -782,10 +795,12 @@ public class Main extends Application {
 	    			KeyFrame frame1card4 = new KeyFrame(
 	    					new Duration(500.0),
 	    					new KeyValue(back4.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[4].scaleXProperty(), 0.00001),
 	    					new KeyValue(front4.scaleXProperty(), 1.0));		
 	    			KeyFrame frame2card4 = new KeyFrame(
 	    					new Duration(1000.0),
 	    					new KeyValue(back4.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[4].scaleXProperty(), 1.0),
 	    					new KeyValue(front4.scaleXProperty(), 10000.0));
 					
 					KeyFrame frame0card5 = new KeyFrame(
@@ -795,10 +810,12 @@ public class Main extends Application {
 	    			KeyFrame frame1card5 = new KeyFrame(
 	    					new Duration(500.0),
 	    					new KeyValue(back5.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[5].scaleXProperty(), 0.00001),
 	    					new KeyValue(front5.scaleXProperty(), 1.0));		
 	    			KeyFrame frame2card5 = new KeyFrame(
 	    					new Duration(1000.0),
 	    					new KeyValue(back5.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[5].scaleXProperty(), 1.0),
 	    					new KeyValue(front5.scaleXProperty(), 10000.0));
 					
 					KeyFrame frame0card6 = new KeyFrame(
@@ -808,10 +825,12 @@ public class Main extends Application {
 	    			KeyFrame frame1card6 = new KeyFrame(
 	    					new Duration(500.0),
 	    					new KeyValue(back6.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[6].scaleXProperty(), 0.00001),
 	    					new KeyValue(front6.scaleXProperty(), 1.0));		
 	    			KeyFrame frame2card6 = new KeyFrame(
 	    					new Duration(1000.0),
 	    					new KeyValue(back6.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[6].scaleXProperty(), 1.0),
 	    					new KeyValue(front6.scaleXProperty(), 10000.0));
 					
 					KeyFrame frame0card7 = new KeyFrame(
@@ -821,10 +840,12 @@ public class Main extends Application {
 	    			KeyFrame frame1card7 = new KeyFrame(
 	    					new Duration(500.0),
 	    					new KeyValue(back7.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[7].scaleXProperty(), 0.00001),
 	    					new KeyValue(front7.scaleXProperty(), 1.0));		
 	    			KeyFrame frame2card7 = new KeyFrame(
 	    					new Duration(1000.0),
 	    					new KeyValue(back7.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[7].scaleXProperty(), 1.0),
 	    					new KeyValue(front7.scaleXProperty(), 10000.0));
 	    			
 	            	if(numberOfShapes == 3) {
@@ -965,6 +986,7 @@ public class Main extends Application {
 	            		}
 	            	}
 	            	
+					score.setText("Points: " + points);
 	            	cardsFlipped++;
 	    			timeline.play();
 	            }
