@@ -1,13 +1,9 @@
 package project1;
 
-import java.util.ArrayList;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -20,6 +16,7 @@ import javafx.util.Duration;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -47,6 +44,9 @@ public class Main extends Application {
 	static int game = 1;
 	static ObservableList<String> shape_options = FXCollections.observableArrayList();
 	static ObservableList<String> color_options = FXCollections.observableArrayList();
+	Double[] x = {0.0, 276.0, 546.0, 141.0, 411.0, 681.0, 276.0, 546.0}; // x coordinates of center of shape (not correct yet)
+	Double[] y = {0.0, 115.0, 115.0, 320.0, 320.0, 320.0, 515.0, 515.0}; // y coordinates of center of shape (not correct yet)
+	Timeline timeline = new Timeline();
 	String[] actual_color = {"", "", "", "", "", "", "", ""};
 	String[] actual_shape = {"", "", "", "", "", "", "", ""};
 	Shape[] shapes = new Shape[8];
@@ -69,7 +69,7 @@ public class Main extends Application {
 			
 			/*
 			 * Drop down menu for selecting an N
-			 * at least 3 and at most 9
+			 * at least 3 and at most	 9
 			 */
 			
 			// Label for selection
@@ -204,25 +204,18 @@ public class Main extends Application {
 			
 			
 			// SET UP VISUALS
-			
-			//Jack, you should create these lists based on what's selected in the main menu
-//			ObservableList<String> color_options = 
-//				    FXCollections.observableArrayList(
-//				        "Color 1",
-//				        "Color 2",
-//				        "Color 3"
-//				    );
-//			ObservableList<String> shape_options = 
-//				    FXCollections.observableArrayList(
-//				        "Shape 1",
-//				        "Shape 2",
-//				        "Shape 3"
-//				    );
 		
+			Pane layers = new Pane();
 			VBox game_screen = new VBox();
 			game_screen.setSpacing(20);
 			game_screen.getStyleClass().add("background");
-			scene2 = new Scene(game_screen, 900, 700);
+			game_screen.setMinWidth(900);
+			game_screen.setPrefWidth(900);
+			game_screen.setMaxWidth(900);
+			game_screen.setMinHeight(700);
+			game_screen.setPrefHeight(700);
+			game_screen.setMaxHeight(700);
+			scene2 = new Scene(layers, 900, 700);
 			
 
 
@@ -508,10 +501,10 @@ public class Main extends Application {
 					game_number.setPrefHeight(40);
 					game_number.setMaxHeight(40);
 					game_number.getStyleClass().add("display_info");
-
-			
+					
+					
 			game_screen.getChildren().addAll(row1, row2, row3, row4, row5);
-
+			layers.getChildren().addAll(game_screen);
 			
 			
 			// ADD EVENT HANDLING
@@ -543,17 +536,17 @@ public class Main extends Application {
 						// "deal out the cards"
 						for(int i = 0; i < 8; i++)
 						{
-							actual_color[i] = color_options.get( (int)(Math.random() * (color_options.size() - 1)) );
-							System.out.println(i + " " + actual_color[i]);
+							actual_color[i] = color_options.get((int)(Math.random() * color_options.size()) );
 						}
 
 						for(int i = 0; i < 8; i++)
 						{
-							actual_shape[i] = shape_options.get( (int)(Math.random() * (shape_options.size() - 1)) );
-							System.out.println(i + " " + actual_shape[i]);
+							actual_shape[i] = shape_options.get((int)(Math.random() * shape_options.size()) );
 						}
 
-						for(int i = 0; i < 0; i++)
+
+
+						for(int i = 1; i < 8; i++)
 						{
 							String shape = actual_shape[i];
 							String color = actual_color[i];
@@ -561,29 +554,58 @@ public class Main extends Application {
 							switch (shape.toLowerCase()) {
 							case "circle":
 								shapes[i] = new Circle();
-								((Circle) shapes[i]).setRadius(10);
+								((Circle) shapes[i]).setRadius(40);
 								break;
 
 							case "triangle":
-								shapes[i] = new Polygon(3);
+								shapes[i] = new Polygon();
+								((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+										-40.0, 0.0,
+									    40.0, 0.0,
+									    0.0, -70.0 });
 								break;
 
 							case "square":
-								shapes[i] = new Polygon(4);
+								shapes[i] = new Polygon();
+								((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+										-40.0, 40.0,
+									    40.0, 40.0,
+									    40.0, -40.0,
+									    -40.0, -40.0,});
 								break;
 
 							case "rectangle":
-								shapes[i] = new Polygon(4);
+								shapes[i] = new Polygon();
+								((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+										40.0, 25.0,
+									    40.0, -25.0,
+									    -40.0, -25.0,
+									    -40.0, 25.0,});
 								break;
 
 							case "pentagon":
-								shapes[i] = new Polygon(5);
+								shapes[i] = new Polygon();
+								((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+									    0.0, -40.0,
+									    -38.0, -12.0,
+									    -24.0, 32.0,
+									    24.0, 32.0,
+									    38.0, -12.0});
 								break;
 
 							case "hexagon":
-								shapes[i] = new Polygon(6);
+								shapes[i] = new Polygon();
+								((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+										40.0, 0.0,
+									    20.0, -34.641,
+									    -20.0, -34.641,
+									    -40.0, 0.0,
+									    -20.0, 34.641,
+									    20.0, 34.641});
 								break;
 							}
+							
+							//set shape color
 							switch (color.toLowerCase()) {
 							case "red":
 								shapes[i].setFill(Color.RED);
@@ -609,6 +631,13 @@ public class Main extends Application {
 								shapes[i].setFill(Color.PURPLE);
 								break;
 							}
+							
+							// set shape location
+							shapes[i].relocate(x[i], y[i]);
+							
+							layers.getChildren().add(shapes[i]);
+							
+							System.out.println(shapes[i]);
 						}
 
 						// reset all variables, since new game began
@@ -621,18 +650,25 @@ public class Main extends Application {
 						// undo any previously played animations ("unflip" cards)
 						front1.scaleXProperty().setValue(1);
 						back1.scaleXProperty().setValue(1);
+						shapes[1].scaleXProperty().setValue(.00001);
 						front2.scaleXProperty().setValue(1);
 						back2.scaleXProperty().setValue(1);
+						shapes[2].scaleXProperty().setValue(.00001);
 						front3.scaleXProperty().setValue(1);
 						back3.scaleXProperty().setValue(1);
+						shapes[3].scaleXProperty().setValue(.00001);
 						front4.scaleXProperty().setValue(1);
 						back4.scaleXProperty().setValue(1);
+						shapes[4].scaleXProperty().setValue(.00001);
 						front5.scaleXProperty().setValue(1);
 						back5.scaleXProperty().setValue(1);
+						shapes[5].scaleXProperty().setValue(.00001);
 						front6.scaleXProperty().setValue(1);
 						back6.scaleXProperty().setValue(1);
+						shapes[6].scaleXProperty().setValue(.00001);
 						front7.scaleXProperty().setValue(1);
 						back7.scaleXProperty().setValue(1);
+						shapes[7].scaleXProperty().setValue(.00001);
 
 						//reset all button states as well
 						next_game.setVisible(false);
@@ -712,98 +748,120 @@ public class Main extends Application {
 	            	
 	            	if(cardsFlipped >= numberOfShapes)
 	            		return;
+	            	timeline.getKeyFrames().clear();
+	            	System.out.println(timeline.getKeyFrames().toString());
 	            	
 	            	//set up time line and all 21 possible key frames
-	    			Timeline timeline = new Timeline();
 	            	KeyFrame frame0card1 = new KeyFrame(
 	    					Duration.ZERO,
 	    					new KeyValue(back1.scaleXProperty(), 1.0),
+	    					new KeyValue(shapes[1].scaleXProperty(), 0.00001),
 	    					new KeyValue(front1.scaleXProperty(), 1.0));
 	    			KeyFrame frame1card1 = new KeyFrame(
 	    					new Duration(500.0),
 	    					new KeyValue(back1.scaleXProperty(), 0.01),
-	    					new KeyValue(front1.scaleXProperty(), 1.0));		
+	    					new KeyValue(shapes[1].scaleXProperty(), 0.00001),
+	    					new KeyValue(front1.scaleXProperty(), 1.0));
 	    			KeyFrame frame2card1 = new KeyFrame(
 	    					new Duration(1000.0),
 	    					new KeyValue(back1.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[1].scaleXProperty(), 1.0),
 	    					new KeyValue(front1.scaleXProperty(), 10000.0));
 	            	
 					KeyFrame frame0card2 = new KeyFrame(
 	    					Duration.ZERO,
 	    					new KeyValue(back2.scaleXProperty(), 1.0),
+	    					new KeyValue(shapes[2].scaleXProperty(), 0.00001),
 	    					new KeyValue(front2.scaleXProperty(), 1.0));
 	    			KeyFrame frame1card2 = new KeyFrame(
 	    					new Duration(500.0),
 	    					new KeyValue(back2.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[2].scaleXProperty(), 0.00001),
 	    					new KeyValue(front2.scaleXProperty(), 1.0));		
 	    			KeyFrame frame2card2 = new KeyFrame(
 	    					new Duration(1000.0),
 	    					new KeyValue(back2.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[2].scaleXProperty(), 1.0),
 	    					new KeyValue(front2.scaleXProperty(), 10000.0));
 	            	
 					KeyFrame frame0card3 = new KeyFrame(
 	    					Duration.ZERO,
 	    					new KeyValue(back3.scaleXProperty(), 1.0),
+	    					new KeyValue(shapes[3].scaleXProperty(), 0.00001),
 	    					new KeyValue(front3.scaleXProperty(), 1.0));
 	    			KeyFrame frame1card3 = new KeyFrame(
 	    					new Duration(500.0),
 	    					new KeyValue(back3.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[3].scaleXProperty(), 0.00001),
 	    					new KeyValue(front3.scaleXProperty(), 1.0));		
 	    			KeyFrame frame2card3 = new KeyFrame(
 	    					new Duration(1000.0),
 	    					new KeyValue(back3.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[3].scaleXProperty(), 1.0),
 	    					new KeyValue(front3.scaleXProperty(), 10000.0));
 	            	
 					KeyFrame frame0card4 = new KeyFrame(
 	    					Duration.ZERO,
 	    					new KeyValue(back4.scaleXProperty(), 1.0),
+	    					new KeyValue(shapes[4].scaleXProperty(), 0.00001),
 	    					new KeyValue(front4.scaleXProperty(), 1.0));
 	    			KeyFrame frame1card4 = new KeyFrame(
 	    					new Duration(500.0),
 	    					new KeyValue(back4.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[4].scaleXProperty(), 0.00001),
 	    					new KeyValue(front4.scaleXProperty(), 1.0));		
 	    			KeyFrame frame2card4 = new KeyFrame(
 	    					new Duration(1000.0),
 	    					new KeyValue(back4.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[4].scaleXProperty(), 1.0),
 	    					new KeyValue(front4.scaleXProperty(), 10000.0));
 					
 					KeyFrame frame0card5 = new KeyFrame(
 	    					Duration.ZERO,
 	    					new KeyValue(back5.scaleXProperty(), 1.0),
+	    					new KeyValue(shapes[5].scaleXProperty(), 0.00001),
 	    					new KeyValue(front5.scaleXProperty(), 1.0));
 	    			KeyFrame frame1card5 = new KeyFrame(
 	    					new Duration(500.0),
 	    					new KeyValue(back5.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[5].scaleXProperty(), 0.00001),
 	    					new KeyValue(front5.scaleXProperty(), 1.0));		
 	    			KeyFrame frame2card5 = new KeyFrame(
 	    					new Duration(1000.0),
 	    					new KeyValue(back5.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[5].scaleXProperty(), 1.0),
 	    					new KeyValue(front5.scaleXProperty(), 10000.0));
 					
 					KeyFrame frame0card6 = new KeyFrame(
 	    					Duration.ZERO,
 	    					new KeyValue(back6.scaleXProperty(), 1.0),
+	    					new KeyValue(shapes[6].scaleXProperty(), 0.00001),
 	    					new KeyValue(front6.scaleXProperty(), 1.0));
 	    			KeyFrame frame1card6 = new KeyFrame(
 	    					new Duration(500.0),
 	    					new KeyValue(back6.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[6].scaleXProperty(), 0.00001),
 	    					new KeyValue(front6.scaleXProperty(), 1.0));		
 	    			KeyFrame frame2card6 = new KeyFrame(
 	    					new Duration(1000.0),
 	    					new KeyValue(back6.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[6].scaleXProperty(), 1.0),
 	    					new KeyValue(front6.scaleXProperty(), 10000.0));
 					
 					KeyFrame frame0card7 = new KeyFrame(
 	    					Duration.ZERO,
 	    					new KeyValue(back7.scaleXProperty(), 1.0),
+	    					new KeyValue(shapes[7].scaleXProperty(), 0.00001),
 	    					new KeyValue(front7.scaleXProperty(), 1.0));
 	    			KeyFrame frame1card7 = new KeyFrame(
 	    					new Duration(500.0),
 	    					new KeyValue(back7.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[7].scaleXProperty(), 0.00001),
 	    					new KeyValue(front7.scaleXProperty(), 1.0));		
 	    			KeyFrame frame2card7 = new KeyFrame(
 	    					new Duration(1000.0),
 	    					new KeyValue(back7.scaleXProperty(), 0.01),
+	    					new KeyValue(shapes[7].scaleXProperty(), 1.0),
 	    					new KeyValue(front7.scaleXProperty(), 10000.0));
 	    			
 	            	if(numberOfShapes == 3) {
@@ -944,6 +1002,7 @@ public class Main extends Application {
 	            		}
 	            	}
 	            	
+					score.setText("Points: " + points);
 	            	cardsFlipped++;
 	    			timeline.play();
 	            }
@@ -953,7 +1012,133 @@ public class Main extends Application {
 						next_game.setOnAction(new EventHandler<ActionEvent>() {
 				            @Override 
 				            public void handle(ActionEvent event) {
-				      
+
+									// move to next scene, where game play occurs
+				            		window.setScene(scene2);
+				            		layers.getChildren().removeAll(shapes);
+				            		timeline.getKeyFrames().clear();
+				            		for(int i = 0; i < shapes.length; i++)
+				            			shapes[i]  = null;
+									System.out.println(timeline.getKeyFrames().toString());
+//									timeline.getKeyFrames().clear();
+//									System.out.println(timeline.getKeyFrames());
+									// "deal out the cards"
+									for(int i = 0; i < 8; i++)
+									{
+										actual_color[i] = color_options.get((int)(Math.random() * color_options.size()) );
+										System.out.println(i + " " + actual_color[i]);
+									}
+
+									for(int i = 0; i < 8; i++)
+									{
+										actual_shape[i] = shape_options.get((int)(Math.random() * shape_options.size()) );
+										System.out.println(i + " " + actual_shape[i]);
+									}
+
+
+
+									for(int i = 1; i < 8; i++)
+									{
+										String shape = actual_shape[i];
+										String color = actual_color[i];
+
+										switch (shape.toLowerCase()) {
+										case "circle":
+											shapes[i] = new Circle();
+											((Circle) shapes[i]).setRadius(40);
+											((Circle) shapes[i]).scaleXProperty().setValue(0.00001);
+											break;
+
+										case "triangle":
+											shapes[i] = new Polygon();
+											((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+													-40.0, 0.0,
+												    40.0, 0.0,
+												    0.0, -70.0 });
+											((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
+											break;
+
+										case "square":
+											shapes[i] = new Polygon();
+											((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+													-40.0, 40.0,
+												    40.0, 40.0,
+												    40.0, -40.0,
+												    -40.0, -40.0,});
+											((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
+											break;
+
+										case "rectangle":
+											shapes[i] = new Polygon();
+											((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+													40.0, 25.0,
+												    40.0, -25.0,
+												    -40.0, -25.0,
+												    -40.0, 25.0,});
+											((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
+											break;
+
+										case "pentagon":
+											shapes[i] = new Polygon();
+											((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+												    0.0, -40.0,
+												    -38.0, -12.0,
+												    -24.0, 32.0,
+												    24.0, 32.0,
+												    38.0, -12.0});
+											((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
+											break;
+
+										case "hexagon":
+											shapes[i] = new Polygon();
+											((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+													40.0, 0.0,
+												    20.0, -34.641,
+												    -20.0, -34.641,
+												    -40.0, 0.0,
+												    -20.0, 34.641,
+												    20.0, 34.641});
+											((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
+											break;
+										}
+										
+										//set shape color
+										switch (color.toLowerCase()) {
+										case "red":
+											shapes[i].setFill(Color.RED);
+											break;
+
+										case "orange":
+											shapes[i].setFill(Color.ORANGE);
+											break;
+
+										case "yellow":
+											shapes[i].setFill(Color.YELLOW);
+											break;
+
+										case "green":
+											shapes[i].setFill(Color.GREEN);
+											break;
+
+										case "blue":
+											shapes[i].setFill(Color.BLUE);
+											break;
+
+										case "purple":
+											shapes[i].setFill(Color.PURPLE);
+											break;
+										}
+										
+										// set shape location
+										shapes[i].relocate(x[i], y[i]);
+										
+										layers.getChildren().add(shapes[i]);
+										
+										//System.out.println(shapes[i]);
+									}
+				            
+
+				            	
 				            	// new game has begun, but save old score
 				            	cardsFlipped = 0;
 				            	game++;
