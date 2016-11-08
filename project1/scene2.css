@@ -22,6 +22,10 @@
 .choice {
 }
 
+.badInput{
+	-fx-text-fill: red;
+}
+
 .title {
 	-fx-font-family: Arial Black, Arial Bold, Gadget, sans-serif;
 	-fx-font-weight: bold;
