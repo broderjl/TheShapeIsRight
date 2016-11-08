@@ -1,13 +1,9 @@
 package project1;
 
-import java.util.ArrayList;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -72,7 +68,7 @@ public class Main extends Application {
 			
 			/*
 			 * Drop down menu for selecting an N
-			 * at least 3 and at most 9
+			 * at least 3 and at most	 9
 			 */
 			
 			// Label for selection
@@ -590,10 +586,23 @@ public class Main extends Application {
 
 							case "pentagon":
 								shapes[i] = new Polygon();
+								((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+									    0.0, -40.0,
+									    -38.0, -12.0,
+									    -24.0, 32.0,
+									    24.0, 32.0,
+									    38.0, -12.0});
 								break;
 
 							case "hexagon":
 								shapes[i] = new Polygon();
+								((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+										40.0, 0.0,
+									    20.0, -34.641,
+									    -20.0, -34.641,
+									    -40.0, 0.0,
+									    -20.0, 34.641,
+									    20.0, 34.641});
 								break;
 							}
 							
