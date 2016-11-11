@@ -1,7 +1,7 @@
 .background {
 	-fx-background-image: url("table.jpg");
 	-fx-background-repeat: stretch;
-	-fx-background-size: 900 700;
+	-fx-background-size: 1010 700;
 	-fx-alignment: center center;
 }
 
@@ -24,6 +24,11 @@
 
 .badInput{
 	-fx-text-fill: red;
+}
+
+.label {
+	-fx-text-fill: white;
+	-fx-font-size: 18px;
 }
 
 .title {

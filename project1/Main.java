@@ -50,6 +50,7 @@ public class Main extends Application {
 	String[] actual_color = {"", "", "", "", "", "", "", ""};
 	String[] actual_shape = {"", "", "", "", "", "", "", ""};
 	Shape[] shapes = new Shape[8];
+	Shape[] possible_shapes = new Shape[8];
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -192,7 +193,7 @@ public class Main extends Application {
 			main_screen.setSpacing(30);
 			main_screen.getStyleClass().add("background");
 			main_screen.getChildren().addAll(label1, listViewsHBox, selectionBox, play_button, badInputLabel);
-			scene1 = new Scene(main_screen, 900, 700);
+			scene1 = new Scene(main_screen, 1020, 700);
 
 			
 			
@@ -207,17 +208,27 @@ public class Main extends Application {
 		
 			Pane layers = new Pane();
 			VBox game_screen = new VBox();
+			HBox full_screen = new HBox();
 			game_screen.setSpacing(20);
-			game_screen.getStyleClass().add("background");
 			game_screen.setMinWidth(900);
 			game_screen.setPrefWidth(900);
 			game_screen.setMaxWidth(900);
 			game_screen.setMinHeight(700);
 			game_screen.setPrefHeight(700);
 			game_screen.setMaxHeight(700);
-			scene2 = new Scene(layers, 900, 700);
+			scene2 = new Scene(layers, 1000, 700);
 			
-
+			VBox shapes_to_guess = new VBox();
+				shapes_to_guess.setAlignment(Pos.CENTER);
+				shapes_to_guess.setSpacing(10);
+				shapes_to_guess.setPadding(new Insets(10, 10, 10, 10));
+				Label shapesToGuessLabel = new Label("Possible\n Shapes");
+				shapesToGuessLabel.getStyleClass().add("label");
+				shapes_to_guess.getChildren().add(shapesToGuessLabel);
+				
+			full_screen.getChildren().addAll(game_screen, shapes_to_guess);
+			full_screen.getStyleClass().add("background");
+			
 
 			BorderPane row1 = new BorderPane();
 				Label score = new Label("Score: 0");
@@ -504,7 +515,7 @@ public class Main extends Application {
 					
 					
 			game_screen.getChildren().addAll(row1, row2, row3, row4, row5);
-			layers.getChildren().addAll(game_screen);
+			layers.getChildren().addAll(full_screen);
 			
 			
 			// ADD EVENT HANDLING
@@ -555,6 +566,8 @@ public class Main extends Application {
 							case "circle":
 								shapes[i] = new Circle();
 								((Circle) shapes[i]).setRadius(40);
+								possible_shapes[i] = new Circle();
+								((Circle) possible_shapes[i]).setRadius(40);
 								break;
 
 							case "triangle":
@@ -563,11 +576,22 @@ public class Main extends Application {
 										-40.0, 0.0,
 									    40.0, 0.0,
 									    0.0, -70.0 });
+								possible_shapes[i] = new Polygon();
+								((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
+										-40.0, 0.0,
+									    40.0, 0.0,
+									    0.0, -70.0 });
 								break;
 
 							case "square":
 								shapes[i] = new Polygon();
 								((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+										-40.0, 40.0,
+									    40.0, 40.0,
+									    40.0, -40.0,
+									    -40.0, -40.0,});
+								possible_shapes[i] = new Polygon();
+								((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
 										-40.0, 40.0,
 									    40.0, 40.0,
 									    40.0, -40.0,
@@ -581,11 +605,24 @@ public class Main extends Application {
 									    40.0, -25.0,
 									    -40.0, -25.0,
 									    -40.0, 25.0,});
+								possible_shapes[i] = new Polygon();
+								((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
+										40.0, 25.0,
+									    40.0, -25.0,
+									    -40.0, -25.0,
+									    -40.0, 25.0,});
 								break;
 
 							case "pentagon":
 								shapes[i] = new Polygon();
 								((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+									    0.0, -40.0,
+									    -38.0, -12.0,
+									    -24.0, 32.0,
+									    24.0, 32.0,
+									    38.0, -12.0});
+								possible_shapes[i] = new Polygon();
+								((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
 									    0.0, -40.0,
 									    -38.0, -12.0,
 									    -24.0, 32.0,
@@ -602,6 +639,14 @@ public class Main extends Application {
 									    -40.0, 0.0,
 									    -20.0, 34.641,
 									    20.0, 34.641});
+								possible_shapes[i] = new Polygon();
+								((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
+										40.0, 0.0,
+									    20.0, -34.641,
+									    -20.0, -34.641,
+									    -40.0, 0.0,
+									    -20.0, 34.641,
+									    20.0, 34.641});
 								break;
 							}
 							
@@ -609,31 +654,38 @@ public class Main extends Application {
 							switch (color.toLowerCase()) {
 							case "red":
 								shapes[i].setFill(Color.RED);
+								possible_shapes[i].setFill(Color.RED);
 								break;
 
 							case "orange":
 								shapes[i].setFill(Color.ORANGE);
+								possible_shapes[i].setFill(Color.ORANGE);
 								break;
 
 							case "yellow":
 								shapes[i].setFill(Color.YELLOW);
+								possible_shapes[i].setFill(Color.YELLOW);
 								break;
 
 							case "green":
 								shapes[i].setFill(Color.GREEN);
+								possible_shapes[i].setFill(Color.GREEN);
 								break;
 
 							case "blue":
 								shapes[i].setFill(Color.BLUE);
+								possible_shapes[i].setFill(Color.BLUE);
 								break;
 
 							case "purple":
 								shapes[i].setFill(Color.PURPLE);
+								possible_shapes[i].setFill(Color.PURPLE);
 								break;
 							}
 							
 							// set shape location
 							shapes[i].relocate(x[i], y[i]);
+							possible_shapes[i].relocate(x[i],y[i]);
 							
 							layers.getChildren().add(shapes[i]);
 							
@@ -678,6 +730,11 @@ public class Main extends Application {
 						// adjust the number of visible cards
 						// as well as the selection options on top
 						if(numberOfShapes == 3) {
+							for(int i = 3; i < 6; i++)
+							{
+								shapes_to_guess.getChildren().add(possible_shapes[i]);
+							}
+								
 							card1stack.setVisible(false);
 							card2stack.setVisible(false);
 							card3stack.setVisible(true);
@@ -692,6 +749,14 @@ public class Main extends Application {
 							card6stack.setVisible(false);
 							card7stack.setVisible(false);
 						} else if (numberOfShapes == 5) {
+							for(int i = 1; i < 3; i++)
+								shapes_to_guess.getChildren().add(possible_shapes[i]);
+							
+							shapes_to_guess.getChildren().add(possible_shapes[4]);
+							
+							for(int i = 6; i < 8; i++)
+								shapes_to_guess.getChildren().add(possible_shapes[i]);
+							
 							card1stack.setVisible(true);
 							color_choice1.setVisible(true);
 							shape_choice1.setVisible(true);
@@ -710,6 +775,9 @@ public class Main extends Application {
 							color_choice7.setVisible(true);
 							shape_choice7.setVisible(true);
 						} else {
+							for(int i = 1; i < 8; i++)
+								shapes_to_guess.getChildren().add(possible_shapes[i]);
+								
 							card1stack.setVisible(true);
 							color_choice1.setVisible(true);
 							shape_choice1.setVisible(true);
@@ -1017,6 +1085,7 @@ public class Main extends Application {
 				            		window.setScene(scene2);
 				            		layers.getChildren().removeAll(shapes);
 				            		timeline.getKeyFrames().clear();
+				            		shapes_to_guess.getChildren().clear();
 				            		for(int i = 0; i < shapes.length; i++)
 				            			shapes[i]  = null;
 									System.out.println(timeline.getKeyFrames().toString());
@@ -1035,7 +1104,7 @@ public class Main extends Application {
 										System.out.println(i + " " + actual_shape[i]);
 									}
 
-
+									shapes_to_guess.getChildren().add(shapesToGuessLabel);
 
 									for(int i = 1; i < 8; i++)
 									{
@@ -1047,6 +1116,8 @@ public class Main extends Application {
 											shapes[i] = new Circle();
 											((Circle) shapes[i]).setRadius(40);
 											((Circle) shapes[i]).scaleXProperty().setValue(0.00001);
+											possible_shapes[i] = new Circle();
+											((Circle) possible_shapes[i]).setRadius(40);
 											break;
 
 										case "triangle":
@@ -1056,6 +1127,11 @@ public class Main extends Application {
 												    40.0, 0.0,
 												    0.0, -70.0 });
 											((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
+											possible_shapes[i] = new Polygon();
+											((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
+													-40.0, 0.0,
+												    40.0, 0.0,
+												    0.0, -70.0 });
 											break;
 
 										case "square":
@@ -1066,6 +1142,12 @@ public class Main extends Application {
 												    40.0, -40.0,
 												    -40.0, -40.0,});
 											((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
+											possible_shapes[i] = new Polygon();
+											((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
+													-40.0, 40.0,
+												    40.0, 40.0,
+												    40.0, -40.0,
+												    -40.0, -40.0,});
 											break;
 
 										case "rectangle":
@@ -1076,6 +1158,12 @@ public class Main extends Application {
 												    -40.0, -25.0,
 												    -40.0, 25.0,});
 											((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
+											possible_shapes[i] = new Polygon();
+											((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
+													40.0, 25.0,
+												    40.0, -25.0,
+												    -40.0, -25.0,
+												    -40.0, 25.0,});
 											break;
 
 										case "pentagon":
@@ -1087,6 +1175,13 @@ public class Main extends Application {
 												    24.0, 32.0,
 												    38.0, -12.0});
 											((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
+											possible_shapes[i] = new Polygon();
+											((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
+												    0.0, -40.0,
+												    -38.0, -12.0,
+												    -24.0, 32.0,
+												    24.0, 32.0,
+												    38.0, -12.0});
 											break;
 
 										case "hexagon":
@@ -1099,6 +1194,14 @@ public class Main extends Application {
 												    -20.0, 34.641,
 												    20.0, 34.641});
 											((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
+											possible_shapes[i] = new Polygon();
+											((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
+													40.0, 0.0,
+												    20.0, -34.641,
+												    -20.0, -34.641,
+												    -40.0, 0.0,
+												    -20.0, 34.641,
+												    20.0, 34.641});
 											break;
 										}
 										
@@ -1106,31 +1209,38 @@ public class Main extends Application {
 										switch (color.toLowerCase()) {
 										case "red":
 											shapes[i].setFill(Color.RED);
+											possible_shapes[i].setFill(Color.RED);
 											break;
 
 										case "orange":
 											shapes[i].setFill(Color.ORANGE);
+											possible_shapes[i].setFill(Color.ORANGE);
 											break;
 
 										case "yellow":
 											shapes[i].setFill(Color.YELLOW);
+											possible_shapes[i].setFill(Color.YELLOW);
 											break;
 
 										case "green":
 											shapes[i].setFill(Color.GREEN);
+											possible_shapes[i].setFill(Color.GREEN);
 											break;
 
 										case "blue":
 											shapes[i].setFill(Color.BLUE);
+											possible_shapes[i].setFill(Color.BLUE);
 											break;
 
 										case "purple":
 											shapes[i].setFill(Color.PURPLE);
+											possible_shapes[i].setFill(Color.PURPLE);
 											break;
 										}
 										
 										// set shape location
 										shapes[i].relocate(x[i], y[i]);
+										possible_shapes[i].relocate(x[i], y[i]);
 										
 										layers.getChildren().add(shapes[i]);
 										
@@ -1164,6 +1274,10 @@ public class Main extends Application {
 				            	// adjust the number of visible cards
 				            	// as well as the selection options on top
 				            	if(numberOfShapes == 3) {
+									for(int i = 3; i < 6; i++)
+									{
+										shapes_to_guess.getChildren().add(possible_shapes[i]);
+									}
 				            		card1stack.setVisible(false);
 				            		card2stack.setVisible(false);
 				            		card3stack.setVisible(true);
@@ -1178,6 +1292,14 @@ public class Main extends Application {
 				            		card6stack.setVisible(false);
 				            		card7stack.setVisible(false);
 				            	} else if (numberOfShapes == 5) {
+									for(int i = 1; i < 3; i++)
+										shapes_to_guess.getChildren().add(possible_shapes[i]);
+									
+									shapes_to_guess.getChildren().add(possible_shapes[4]);
+									
+									for(int i = 6; i < 8; i++)
+										shapes_to_guess.getChildren().add(possible_shapes[i]);
+									
 				            		card1stack.setVisible(true);
 				            		color_choice1.setVisible(true);
 				            		shape_choice1.setVisible(true);
@@ -1196,6 +1318,9 @@ public class Main extends Application {
 				            		color_choice7.setVisible(true);
 				            		shape_choice7.setVisible(true);
 				            	} else {
+									for(int i = 1; i < 8; i++)
+										shapes_to_guess.getChildren().add(possible_shapes[i]);
+									
 				            		card1stack.setVisible(true);
 				            		color_choice1.setVisible(true);
 				            		shape_choice1.setVisible(true);
@@ -1233,6 +1358,9 @@ public class Main extends Application {
 					getClass().getResource("scene1.css").toExternalForm() );
 			scene2.getStylesheets().add( 
 					getClass().getResource("scene2.css").toExternalForm() );
+			
+
+			full_screen.getStylesheets().add("background");
 			
 			window.setScene(scene1); //default
 			window.setTitle("The Shape is Right!");
