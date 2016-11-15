@@ -934,13 +934,21 @@ public class Main extends Application {
 	    			
 	            	if(numberOfShapes == 3) {
 	            		if(cardsFlipped == 0) {
-	    	            	color_choice3.setVisible(false);
+	    	            	if(		actual_color[3] == color_choice3.getValue()
+	    	            		&& 	actual_shape[3] == shape_choice3.getValue())
+	    	            		points++;
+	    	            	
+	            			color_choice3.setVisible(false);
 	    	            	shape_choice3.setVisible(false);
 	    	    			timeline.getKeyFrames().add(frame0card3);
 	    	    			timeline.getKeyFrames().add(frame1card3);
 	    	    			timeline.getKeyFrames().add(frame2card3);
 	            		}
 	            		if(cardsFlipped == 1) {
+	    	            	if(		actual_color[4] == color_choice4.getValue()
+		    	            		&& 	actual_shape[4] == shape_choice4.getValue())
+		    	            		points++;
+	            			
 	    	            	color_choice4.setVisible(false);
 	    	            	shape_choice4.setVisible(false);
 	    	    			timeline.getKeyFrames().add(frame0card4);
@@ -948,6 +956,10 @@ public class Main extends Application {
 	    	    			timeline.getKeyFrames().add(frame2card4);
 	            		}
 	            		if(cardsFlipped == 2) {
+	    	            	if(		actual_color[5] == color_choice5.getValue()
+		    	            		&& 	actual_shape[5] == shape_choice5.getValue())
+		    	            		points++;
+	    	            	
 	            			if(game == MAX_GAMES){
 	            				final_score.setVisible(true);
 	            				flip_next.setVisible(false);
@@ -966,6 +978,10 @@ public class Main extends Application {
 	            	
 	            	if(numberOfShapes == 5) {
 	            		if(cardsFlipped == 0) {
+	    	            	if(		actual_color[1] == color_choice1.getValue()
+		    	            		&& 	actual_shape[1] == shape_choice1.getValue())
+		    	            		points++;
+	    	            	
 	    	            	color_choice1.setVisible(false);
 	    	            	shape_choice1.setVisible(false);
 	    	    			timeline.getKeyFrames().add(frame0card1);
@@ -973,6 +989,10 @@ public class Main extends Application {
 	    	    			timeline.getKeyFrames().add(frame2card1);
 	            		}
 	            		if(cardsFlipped == 1) {
+	    	            	if(		actual_color[2] == color_choice2.getValue()
+		    	            		&& 	actual_shape[2] == shape_choice2.getValue())
+		    	            		points++;
+	    	            	
 	    	            	color_choice2.setVisible(false);
 	    	            	shape_choice2.setVisible(false);
 	    	    			timeline.getKeyFrames().add(frame0card2);
@@ -980,6 +1000,10 @@ public class Main extends Application {
 	    	    			timeline.getKeyFrames().add(frame2card2);
 	            		}
 	            		if(cardsFlipped == 2) {
+	    	            	if(		actual_color[4] == color_choice4.getValue()
+		    	            		&& 	actual_shape[4] == shape_choice4.getValue())
+		    	            		points++;
+	    	            	
 	    	            	color_choice4.setVisible(false);
 	    	            	shape_choice4.setVisible(false);
 	    	    			timeline.getKeyFrames().add(frame0card4);
@@ -987,6 +1011,10 @@ public class Main extends Application {
 	    	    			timeline.getKeyFrames().add(frame2card4);
 	            		}
 	            		if(cardsFlipped == 3) {
+	    	            	if(		actual_color[6] == color_choice6.getValue()
+		    	            		&& 	actual_shape[6] == shape_choice6.getValue())
+		    	            		points++;
+	    	            	
 	    	            	color_choice6.setVisible(false);
 	    	            	shape_choice6.setVisible(false);
 	    	    			timeline.getKeyFrames().add(frame0card6);
@@ -994,6 +1022,10 @@ public class Main extends Application {
 	    	    			timeline.getKeyFrames().add(frame2card6);
 	            		}
 	            		if(cardsFlipped == 4) {
+	    	            	if(		actual_color[7] == color_choice7.getValue()
+		    	            		&& 	actual_shape[7] == shape_choice7.getValue())
+		    	            		points++;
+	    	            	
 	            			if(game == MAX_GAMES){
 	            				final_score.setVisible(true);
 	            				flip_next.setVisible(false);
@@ -1012,6 +1044,10 @@ public class Main extends Application {
 	            	
 	            	if(numberOfShapes == 7) {
 	            		if(cardsFlipped == 0) {
+	    	            	if(		actual_color[1] == color_choice1.getValue()
+		    	            		&& 	actual_shape[1] == shape_choice1.getValue())
+		    	            		points++;
+	    	            	
 	    	            	color_choice1.setVisible(false);
 	    	            	shape_choice1.setVisible(false);
 	    	    			timeline.getKeyFrames().add(frame0card1);
@@ -1019,6 +1055,11 @@ public class Main extends Application {
 	    	    			timeline.getKeyFrames().add(frame2card1);
 	            		}
 	            		if(cardsFlipped == 1) {
+
+		    	            	if(		actual_color[2] == color_choice2.getValue()
+			    	            		&& 	actual_shape[2] == shape_choice2.getValue())
+			    	            		points++;
+		    	            	
 	    	            	color_choice2.setVisible(false);
 	    	            	shape_choice2.setVisible(false);
 	    	    			timeline.getKeyFrames().add(frame0card2);
@@ -1026,6 +1067,10 @@ public class Main extends Application {
 	    	    			timeline.getKeyFrames().add(frame2card2);
 	            		}
 	            		if(cardsFlipped == 2) {
+	    	            	if(		actual_color[3] == color_choice3.getValue()
+		    	            		&& 	actual_shape[3] == shape_choice3.getValue())
+		    	            		points++;
+	    	            	
 	    	            	color_choice3.setVisible(false);
 	    	            	shape_choice3.setVisible(false);
 	    	    			timeline.getKeyFrames().add(frame0card3);
@@ -1033,6 +1078,10 @@ public class Main extends Application {
 	    	    			timeline.getKeyFrames().add(frame2card3);
 	            		}
 	            		if(cardsFlipped == 3) {
+	    	            	if(		actual_color[4] == color_choice4.getValue()
+		    	            		&& 	actual_shape[4] == shape_choice4.getValue())
+		    	            		points++;
+	    	            	
 	    	            	color_choice4.setVisible(false);
 	    	            	shape_choice4.setVisible(false);
 	    	    			timeline.getKeyFrames().add(frame0card4);
@@ -1040,6 +1089,10 @@ public class Main extends Application {
 	    	    			timeline.getKeyFrames().add(frame2card4);
 	            		}
 	            		if(cardsFlipped == 4) {
+	    	            	if(		actual_color[5] == color_choice5.getValue()
+		    	            		&& 	actual_shape[5] == shape_choice5.getValue())
+		    	            		points++;
+	    	            	
 	    	            	color_choice5.setVisible(false);
 	    	            	shape_choice5.setVisible(false);
 	    	    			timeline.getKeyFrames().add(frame0card5);
@@ -1047,6 +1100,10 @@ public class Main extends Application {
 	    	    			timeline.getKeyFrames().add(frame2card5);
 	            		}
 	            		if(cardsFlipped == 5) {
+	    	            	if(		actual_color[6] == color_choice6.getValue()
+		    	            		&& 	actual_shape[6] == shape_choice6.getValue())
+		    	            		points++;
+	    	            	
 	    	            	color_choice6.setVisible(false);
 	    	            	shape_choice6.setVisible(false);
 	    	    			timeline.getKeyFrames().add(frame0card6);
@@ -1054,6 +1111,10 @@ public class Main extends Application {
 	    	    			timeline.getKeyFrames().add(frame2card6);
 	            		}
 	            		if(cardsFlipped == 6) {
+	    	            	if(		actual_color[7] == color_choice7.getValue()
+		    	            		&& 	actual_shape[7] == shape_choice7.getValue())
+		    	            		points++;
+	    	            	
 	            			if(game == MAX_GAMES){
 	            				final_score.setVisible(true);
 	            				flip_next.setVisible(false);
