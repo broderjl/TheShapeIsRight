@@ -524,6 +524,9 @@ public class Main extends Application {
 			menu_button.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
+					timeline.getKeyFrames().clear();
+					cardsFlipped = 0;
+					shapes_to_guess.getChildren().clear();
 					window.setScene(scene1);
 				}
 			});
