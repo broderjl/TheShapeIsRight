@@ -525,8 +525,16 @@ public class Main extends Application {
 				@Override
 				public void handle(ActionEvent event) {
 					timeline.getKeyFrames().clear();
+					layers.getChildren().removeAll(shapes);
+					timeline.stop();
 					cardsFlipped = 0;
 					shapes_to_guess.getChildren().clear();
+					for(int i = 0; i < 8; i++)
+					{
+						shapes[i] = null;
+						possible_shapes[i] = null;
+					}
+					points = 0;
 					window.setScene(scene1);
 				}
 			});
@@ -733,9 +741,17 @@ public class Main extends Application {
 						// adjust the number of visible cards
 						// as well as the selection options on top
 						if(numberOfShapes == 3) {
+							int[] placed = {0, 0, 0, 0, 0, 0, 0, 0};
+							int j;
 							for(int i = 3; i < 6; i++)
 							{
-								shapes_to_guess.getChildren().add(possible_shapes[i]);
+								do {
+									j = (int) (3 * Math.random() + 3);
+									System.out.println(j);
+								} while ( placed[j] == 1 );
+								shapes_to_guess.getChildren().add(possible_shapes[j]);
+								placed[j] = 1;
+								System.out.println(placed.toString());
 							}
 								
 							card1stack.setVisible(false);
@@ -752,13 +768,23 @@ public class Main extends Application {
 							card6stack.setVisible(false);
 							card7stack.setVisible(false);
 						} else if (numberOfShapes == 5) {
-							for(int i = 1; i < 3; i++)
-								shapes_to_guess.getChildren().add(possible_shapes[i]);
-							
-							shapes_to_guess.getChildren().add(possible_shapes[4]);
-							
-							for(int i = 6; i < 8; i++)
-								shapes_to_guess.getChildren().add(possible_shapes[i]);
+							int[] placed = {0, 0, 0, 0, 0, 0, 0, 0};
+							for(int i = 0; i < 8; i++)
+								System.out.print(placed[i] + " ");
+		            		int j = 0;
+		            		for(int i = 0; i < 5; i++)
+		            		{
+		            			boolean flag = true;
+		            			while (flag)
+		            			{
+		            				j = (int)(7 * Math.random() + 1);
+		            				System.out.println(j);
+		            				if(placed[j] == 0 && ((j >= 1 && j < 3) || (j >= 6 && j < 8) || (j == 4)))
+		            					flag = false;
+		            			}
+		            			placed[j] = 1;
+								shapes_to_guess.getChildren().add(possible_shapes[j]);
+		            		}
 							
 							card1stack.setVisible(true);
 							color_choice1.setVisible(true);
@@ -778,8 +804,20 @@ public class Main extends Application {
 							color_choice7.setVisible(true);
 							shape_choice7.setVisible(true);
 						} else {
+							int[] placed = {0, 0, 0, 0, 0, 0, 0, 0};
 							for(int i = 1; i < 8; i++)
-								shapes_to_guess.getChildren().add(possible_shapes[i]);
+							{
+								int j = 0;
+								boolean flag = true;
+								while (flag)
+								{
+									j = (int)(7 * Math.random() + 1);
+									if( placed[j] == 0)
+										flag = false;
+								}
+								placed[j] = 1;
+								shapes_to_guess.getChildren().add(possible_shapes[j]);
+							}
 								
 							card1stack.setVisible(true);
 							color_choice1.setVisible(true);
@@ -964,6 +1002,7 @@ public class Main extends Application {
 		    	            		points++;
 	    	            	
 	            			if(game == MAX_GAMES){
+	            				final_score.setText("Final Score: " + points);
 	            				final_score.setVisible(true);
 	            				flip_next.setVisible(false);
 	            				next_game.setVisible(false);
@@ -1030,6 +1069,7 @@ public class Main extends Application {
 		    	            		points++;
 	    	            	
 	            			if(game == MAX_GAMES){
+	            				final_score.setText("Final Score: " + points);
 	            				final_score.setVisible(true);
 	            				flip_next.setVisible(false);
 	            				next_game.setVisible(false);
@@ -1119,6 +1159,7 @@ public class Main extends Application {
 		    	            		points++;
 	    	            	
 	            			if(game == MAX_GAMES){
+	            				final_score.setText("Final Score: " + points);
 	            				final_score.setVisible(true);
 	            				flip_next.setVisible(false);
 	            				next_game.setVisible(false);
@@ -1149,6 +1190,7 @@ public class Main extends Application {
 				            		window.setScene(scene2);
 				            		layers.getChildren().removeAll(shapes);
 				            		timeline.getKeyFrames().clear();
+				            		timeline.stop();
 				            		shapes_to_guess.getChildren().clear();
 				            		for(int i = 0; i < shapes.length; i++)
 				            			shapes[i]  = null;
@@ -1338,10 +1380,18 @@ public class Main extends Application {
 				            	// adjust the number of visible cards
 				            	// as well as the selection options on top
 				            	if(numberOfShapes == 3) {
+									int[] placed = {0, 0, 0, 0, 0, 0, 0, 0};
+									int j;
 									for(int i = 3; i < 6; i++)
 									{
-										shapes_to_guess.getChildren().add(possible_shapes[i]);
+										do {
+											j = (int) (3 * Math.random() + 3);
+											System.out.println(j);
+										} while ( placed[j] == 1 );
+										shapes_to_guess.getChildren().add(possible_shapes[j]);
+										placed[j] = 1;
 									}
+										
 				            		card1stack.setVisible(false);
 				            		card2stack.setVisible(false);
 				            		card3stack.setVisible(true);
@@ -1356,13 +1406,23 @@ public class Main extends Application {
 				            		card6stack.setVisible(false);
 				            		card7stack.setVisible(false);
 				            	} else if (numberOfShapes == 5) {
-									for(int i = 1; i < 3; i++)
-										shapes_to_guess.getChildren().add(possible_shapes[i]);
-									
-									shapes_to_guess.getChildren().add(possible_shapes[4]);
-									
-									for(int i = 6; i < 8; i++)
-										shapes_to_guess.getChildren().add(possible_shapes[i]);
+									int[] placed = {0, 0, 0, 0, 0, 0, 0, 0};
+									for(int i = 0; i < 8; i++)
+										System.out.print(placed[i] + " ");
+				            		int j = 0;
+				            		for(int i = 0; i < 5; i++)
+				            		{
+				            			boolean flag = true;
+				            			while (flag)
+				            			{
+				            				j = (int)(7 * Math.random() + 1);
+				            				System.out.println(j);
+				            				if(placed[j] == 0 && ((j >= 1 && j < 3) || (j >= 6 && j < 8) || (j == 4)))
+				            					flag = false;
+				            			}
+				            			placed[j] = 1;
+										shapes_to_guess.getChildren().add(possible_shapes[j]);
+				            		}
 									
 				            		card1stack.setVisible(true);
 				            		color_choice1.setVisible(true);
@@ -1382,8 +1442,20 @@ public class Main extends Application {
 				            		color_choice7.setVisible(true);
 				            		shape_choice7.setVisible(true);
 				            	} else {
+									int[] placed = {0, 0, 0, 0, 0, 0, 0, 0};
 									for(int i = 1; i < 8; i++)
-										shapes_to_guess.getChildren().add(possible_shapes[i]);
+									{
+										int j = 0;
+										boolean flag = true;
+										while (flag)
+										{
+											j = (int)(7 * Math.random() + 1);
+											if( placed[j] == 0)
+												flag = false;
+										}
+										placed[j] = 1;
+										shapes_to_guess.getChildren().add(possible_shapes[j]);
+									}
 									
 				            		card1stack.setVisible(true);
 				            		color_choice1.setVisible(true);
