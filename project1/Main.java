@@ -35,19 +35,19 @@ import javafx.scene.image.ImageView;
 
 public class Main extends Application {
 	
-	Stage window;
+	Stage window; 
 	Scene scene1, scene2;
-	static final int MAX_GAMES = 3;
-	static int numberOfShapes = -1;
-	static int cardsFlipped = 0;
-	static int points = 0;
-	static int game = 1;
-	static ObservableList<String> shape_options = FXCollections.observableArrayList();
-	static ObservableList<String> color_options = FXCollections.observableArrayList();
+	static final int MAX_GAMES = 3; // Maximum number of games that can be played
+	static int numberOfShapes = -1; // Number of shapes selected to play with (-1 when user hasn't selected)
+	static int cardsFlipped = 0; // The number of cards that have been flipped during one round
+	static int points = 0; // The number of points that the user has scored (guessed a match correctly).
+	static int game = 1; // Records the current game that the user is on 
+	static ObservableList<String> shape_options = FXCollections.observableArrayList(); // Observable list that allows the user to choose shapes he/she wishes to play with
+	static ObservableList<String> color_options = FXCollections.observableArrayList(); // Observable list that allows the user to choose the colors he/she wishes to play with 
 	Double[] x = {0.0, 276.0, 546.0, 141.0, 411.0, 681.0, 276.0, 546.0}; // x coordinates of center of shape (not correct yet)
 	Double[] y = {0.0, 115.0, 115.0, 320.0, 320.0, 320.0, 515.0, 515.0}; // y coordinates of center of shape (not correct yet)
 	Timeline timeline = new Timeline();
-	String[] actual_color = {"", "", "", "", "", "", "", ""};
+	String[] actual_color = {"", "", "", "", "", "", "", ""}; // Actual shape and color of a certain "card"
 	String[] actual_shape = {"", "", "", "", "", "", "", ""};
 	Shape[] shapes = new Shape[8];
 	Shape[] possible_shapes = new Shape[8];
@@ -69,8 +69,8 @@ public class Main extends Application {
 			
 			
 			/*
-			 * Drop down menu for selecting an N
-			 * at least 3 and at most	 9
+			 * Drop down menu for selecting an N (number of shapes being played with)
+			 * at least 3 and at most 7 (odd)
 			 */
 			
 			// Label for selection
@@ -117,7 +117,8 @@ public class Main extends Application {
 				listViewsHBox.getChildren().add(colorSelectionListView);
 				listViewsHBox.getChildren().add(shapeSelectionListView);
 				listViewsHBox.getStyleClass().add("listViewsHBox");
-				
+			
+			// Label that will appear if not all parameters are selected
 			Label badInputLabel = new Label("Please complete your selections");
 			badInputLabel.getStyleClass().add("badInput");
 			badInputLabel.setStyle("-fx-text-fill: red");
@@ -136,6 +137,7 @@ public class Main extends Application {
 			numberOfShapesBox.setOnAction((event) -> {
 				String selectedNumber = numberOfShapesBox.getSelectionModel().getSelectedItem();
 				numberOfShapes = Integer.parseInt(selectedNumber);
+				// If not all parameters have been selected, make the error label visible
 				if (numberOfShapes == -1 || color_options.size() == 0 || shape_options.size() == 0)
 				{
 					badInputLabel.setVisible(true);
@@ -150,6 +152,8 @@ public class Main extends Application {
 			
 
 			// Handling for color selections
+			
+			// Allows for the selection of multiple items at one time (shift and command)
 			colorSelectionListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 			colorSelectionListView.getSelectionModel().getSelectedItems().addListener(
 					new ListChangeListener<String>() {
@@ -167,6 +171,8 @@ public class Main extends Application {
 					});
 			
 			// Handling for shape selection
+			
+			// Allows for the selection of multiple items at one time (shift and command keys)
 			shapeSelectionListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 			shapeSelectionListView.getSelectionModel().getSelectedItems().addListener(
 					new ListChangeListener<String>() {
