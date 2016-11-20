@@ -58,7 +58,9 @@ public class Main extends Application {
 			window = primaryStage;
 			
 			
-			// main screen (Jack)
+			// ----------------
+			// MAIN MENU SCREEN
+			// ----------------
 			
 			Label label1 = new Label("The Shape Is Right!");
 			label1.getStyleClass().add("title");
@@ -205,13 +207,14 @@ public class Main extends Application {
 			
 			
 			
-			// -----------------
-			// GAME SCREEN - TIM
-			// -----------------
+			// -----------
+			// GAME SCREEN
+			// -----------
 			
 			
 			// SET UP VISUALS
 		
+			//set up background and base elements
 			Pane layers = new Pane();
 			VBox game_screen = new VBox();
 			HBox full_screen = new HBox();
@@ -236,6 +239,7 @@ public class Main extends Application {
 			full_screen.getStyleClass().add("background");
 			
 
+			//create row 1, with score, title, and main menu button
 			BorderPane row1 = new BorderPane();
 				Label score = new Label("Score: 0");
 					row1.setLeft(score);
@@ -261,7 +265,7 @@ public class Main extends Application {
 					menu_button.getStyleClass().add("black_button");
 
 
-
+			//create row 2, with 2 cards
 			HBox row2 = new HBox();
 				
 				StackPane card1stack = new StackPane();
@@ -324,7 +328,8 @@ public class Main extends Application {
 				row2.getStyleClass().add("card_row");
 			
 			
-
+				
+			//create row 3, with 3 cards
 			HBox row3 = new HBox();
 				
 				StackPane card3stack = new StackPane();
@@ -416,6 +421,7 @@ public class Main extends Application {
 			
 				
 
+			//create row 4, with 3 cards
 			HBox row4 = new HBox();
 					
 				StackPane card6stack = new StackPane();
@@ -479,6 +485,7 @@ public class Main extends Application {
 			
 			
 
+			//create row 5, with buttons for gameplay and game number
 			BorderPane row5 = new BorderPane();
 				HBox filler = new HBox();
 					row5.setLeft(filler);
@@ -526,7 +533,7 @@ public class Main extends Application {
 			
 			// ADD EVENT HANDLING
 			
-			// go back to main menu
+			// go back to main menu if button is pressed
 			menu_button.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
@@ -561,7 +568,7 @@ public class Main extends Application {
 						// move to next scene, where game play occurs
 						window.setScene(scene2);
 
-						// "deal out the cards"
+						// assign colors and shapes randomly from selected options
 						for(int i = 0; i < 8; i++)
 						{
 							actual_color[i] = color_options.get((int)(Math.random() * color_options.size()) );
@@ -574,6 +581,7 @@ public class Main extends Application {
 
 
 
+						//create actual shape objects given by the randomly generated combinations 
 						for(int i = 1; i < 8; i++)
 						{
 							String shape = actual_shape[i];
@@ -706,7 +714,7 @@ public class Main extends Application {
 							
 							layers.getChildren().add(shapes[i]);
 							
-							System.out.println(shapes[i]);
+							//System.out.println(shapes[i]);
 						}
 
 						// reset all variables, since new game began
@@ -744,20 +752,20 @@ public class Main extends Application {
 						flip_next.setVisible(true);
 						final_score.setVisible(false);
 
-						// adjust the number of visible cards
-						// as well as the selection options on top
+						// adjust visibility of items based on number of cards
 						if(numberOfShapes == 3) {
+							//randomly order display of shapes in side bar
 							int[] placed = {0, 0, 0, 0, 0, 0, 0, 0};
 							int j;
 							for(int i = 3; i < 6; i++)
 							{
 								do {
 									j = (int) (3 * Math.random() + 3);
-									System.out.println(j);
+									//System.out.println(j);
 								} while ( placed[j] == 1 );
 								shapes_to_guess.getChildren().add(possible_shapes[j]);
 								placed[j] = 1;
-								System.out.println(placed.toString());
+								//System.out.println(placed.toString());
 							}
 								
 							card1stack.setVisible(false);
@@ -773,10 +781,14 @@ public class Main extends Application {
 							shape_choice5.setVisible(true);
 							card6stack.setVisible(false);
 							card7stack.setVisible(false);
+							
+							
+							
 						} else if (numberOfShapes == 5) {
+							//randomly order display of shapes in side bar
 							int[] placed = {0, 0, 0, 0, 0, 0, 0, 0};
-							for(int i = 0; i < 8; i++)
-								System.out.print(placed[i] + " ");
+							//for(int i = 0; i < 8; i++)
+								//System.out.print(placed[i] + " ");
 		            		int j = 0;
 		            		for(int i = 0; i < 5; i++)
 		            		{
@@ -784,7 +796,7 @@ public class Main extends Application {
 		            			while (flag)
 		            			{
 		            				j = (int)(7 * Math.random() + 1);
-		            				System.out.println(j);
+		            				//System.out.println(j);
 		            				if(placed[j] == 0 && ((j >= 1 && j < 3) || (j >= 6 && j < 8) || (j == 4)))
 		            					flag = false;
 		            			}
@@ -809,8 +821,12 @@ public class Main extends Application {
 							card7stack.setVisible(true);
 							color_choice7.setVisible(true);
 							shape_choice7.setVisible(true);
-						} else {
+						
+						
+						
+						} else { // all 7 cards should be visible
 							int[] placed = {0, 0, 0, 0, 0, 0, 0, 0};
+							//randomly order display of shapes in side bar
 							for(int i = 1; i < 8; i++)
 							{
 								int j = 0;
@@ -864,7 +880,7 @@ public class Main extends Application {
 	            	if(cardsFlipped >= numberOfShapes)
 	            		return;
 	            	timeline.getKeyFrames().clear();
-	            	System.out.println(timeline.getKeyFrames().toString());
+	            	//System.out.println(timeline.getKeyFrames().toString());
 	            	
 	            	//set up time line and all 21 possible key frames
 	            	KeyFrame frame0card1 = new KeyFrame(
@@ -1008,7 +1024,7 @@ public class Main extends Application {
 		    	            		points++;
 	    	            	
 	            			if(game == MAX_GAMES){
-	            				final_score.setText("Final Score: " + points);
+	            				final_score.setText("Final Score: " + points + " out of " + numberOfShapes*3);
 	            				final_score.setVisible(true);
 	            				flip_next.setVisible(false);
 	            				next_game.setVisible(false);
@@ -1075,7 +1091,7 @@ public class Main extends Application {
 		    	            		points++;
 	    	            	
 	            			if(game == MAX_GAMES){
-	            				final_score.setText("Final Score: " + points);
+	            				final_score.setText("Final Score: " + points + " out of " + numberOfShapes*3);
 	            				final_score.setVisible(true);
 	            				flip_next.setVisible(false);
 	            				next_game.setVisible(false);
@@ -1165,7 +1181,7 @@ public class Main extends Application {
 		    	            		points++;
 	    	            	
 	            			if(game == MAX_GAMES){
-	            				final_score.setText("Final Score: " + points);
+	            				final_score.setText("Final Score: " + points + " out of " + numberOfShapes*3);
 	            				final_score.setVisible(true);
 	            				flip_next.setVisible(false);
 	            				next_game.setVisible(false);
@@ -1188,309 +1204,311 @@ public class Main extends Application {
 			});
 			
 			// start a new game
-						next_game.setOnAction(new EventHandler<ActionEvent>() {
-				            @Override 
-				            public void handle(ActionEvent event) {
+			next_game.setOnAction(new EventHandler<ActionEvent>() {
+				@Override 
+				public void handle(ActionEvent event) {
 
-									// move to next scene, where game play occurs
-				            		window.setScene(scene2);
-				            		layers.getChildren().removeAll(shapes);
-				            		timeline.getKeyFrames().clear();
-				            		timeline.stop();
-				            		shapes_to_guess.getChildren().clear();
-				            		for(int i = 0; i < shapes.length; i++)
-				            			shapes[i]  = null;
-									System.out.println(timeline.getKeyFrames().toString());
-//									timeline.getKeyFrames().clear();
-//									System.out.println(timeline.getKeyFrames());
-									// "deal out the cards"
-									for(int i = 0; i < 8; i++)
-									{
-										actual_color[i] = color_options.get((int)(Math.random() * color_options.size()) );
-										System.out.println(i + " " + actual_color[i]);
-									}
+					// move to next scene, where game play occurs
+					window.setScene(scene2);
+					//reset display and saved values
+					layers.getChildren().removeAll(shapes);
+					timeline.getKeyFrames().clear();
+					timeline.stop();
+					shapes_to_guess.getChildren().clear();
+					for(int i = 0; i < shapes.length; i++)
+						shapes[i]  = null;
+					//System.out.println(timeline.getKeyFrames().toString());
 
-									for(int i = 0; i < 8; i++)
-									{
-										actual_shape[i] = shape_options.get((int)(Math.random() * shape_options.size()) );
-										System.out.println(i + " " + actual_shape[i]);
-									}
+					
+					// deal out the cards
+					for(int i = 0; i < 8; i++)
+					{
+						actual_color[i] = color_options.get((int)(Math.random() * color_options.size()) );
+						//System.out.println(i + " " + actual_color[i]);
+					}
 
-									shapes_to_guess.getChildren().add(shapesToGuessLabel);
+					for(int i = 0; i < 8; i++)
+					{
+						actual_shape[i] = shape_options.get((int)(Math.random() * shape_options.size()) );
+						//System.out.println(i + " " + actual_shape[i]);
+					}
 
-									for(int i = 1; i < 8; i++)
-									{
-										String shape = actual_shape[i];
-										String color = actual_color[i];
+					shapes_to_guess.getChildren().add(shapesToGuessLabel);
 
-										switch (shape.toLowerCase()) {
-										case "circle":
-											shapes[i] = new Circle();
-											((Circle) shapes[i]).setRadius(40);
-											((Circle) shapes[i]).scaleXProperty().setValue(0.00001);
-											possible_shapes[i] = new Circle();
-											((Circle) possible_shapes[i]).setRadius(40);
-											break;
+					//create actual shape objects given randomly generated shapes and colors
+					for(int i = 1; i < 8; i++)
+					{
+						String shape = actual_shape[i];
+						String color = actual_color[i];
 
-										case "triangle":
-											shapes[i] = new Polygon();
-											((Polygon) shapes[i]).getPoints().addAll(new Double[]{
-													-40.0, 0.0,
-												    40.0, 0.0,
-												    0.0, -70.0 });
-											((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
-											possible_shapes[i] = new Polygon();
-											((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
-													-40.0, 0.0,
-												    40.0, 0.0,
-												    0.0, -70.0 });
-											break;
+						switch (shape.toLowerCase()) {
+						case "circle":
+							shapes[i] = new Circle();
+							((Circle) shapes[i]).setRadius(40);
+							((Circle) shapes[i]).scaleXProperty().setValue(0.00001);
+							possible_shapes[i] = new Circle();
+							((Circle) possible_shapes[i]).setRadius(40);
+							break;
 
-										case "square":
-											shapes[i] = new Polygon();
-											((Polygon) shapes[i]).getPoints().addAll(new Double[]{
-													-40.0, 40.0,
-												    40.0, 40.0,
-												    40.0, -40.0,
-												    -40.0, -40.0,});
-											((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
-											possible_shapes[i] = new Polygon();
-											((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
-													-40.0, 40.0,
-												    40.0, 40.0,
-												    40.0, -40.0,
-												    -40.0, -40.0,});
-											break;
+						case "triangle":
+							shapes[i] = new Polygon();
+							((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+									-40.0, 0.0,
+									40.0, 0.0,
+									0.0, -70.0 });
+							((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
+							possible_shapes[i] = new Polygon();
+							((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
+									-40.0, 0.0,
+									40.0, 0.0,
+									0.0, -70.0 });
+							break;
 
-										case "rectangle":
-											shapes[i] = new Polygon();
-											((Polygon) shapes[i]).getPoints().addAll(new Double[]{
-													40.0, 25.0,
-												    40.0, -25.0,
-												    -40.0, -25.0,
-												    -40.0, 25.0,});
-											((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
-											possible_shapes[i] = new Polygon();
-											((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
-													40.0, 25.0,
-												    40.0, -25.0,
-												    -40.0, -25.0,
-												    -40.0, 25.0,});
-											break;
+						case "square":
+							shapes[i] = new Polygon();
+							((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+									-40.0, 40.0,
+									40.0, 40.0,
+									40.0, -40.0,
+									-40.0, -40.0,});
+							((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
+							possible_shapes[i] = new Polygon();
+							((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
+									-40.0, 40.0,
+									40.0, 40.0,
+									40.0, -40.0,
+									-40.0, -40.0,});
+							break;
 
-										case "pentagon":
-											shapes[i] = new Polygon();
-											((Polygon) shapes[i]).getPoints().addAll(new Double[]{
-												    0.0, -40.0,
-												    -38.0, -12.0,
-												    -24.0, 32.0,
-												    24.0, 32.0,
-												    38.0, -12.0});
-											((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
-											possible_shapes[i] = new Polygon();
-											((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
-												    0.0, -40.0,
-												    -38.0, -12.0,
-												    -24.0, 32.0,
-												    24.0, 32.0,
-												    38.0, -12.0});
-											break;
+						case "rectangle":
+							shapes[i] = new Polygon();
+							((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+									40.0, 25.0,
+									40.0, -25.0,
+									-40.0, -25.0,
+									-40.0, 25.0,});
+							((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
+							possible_shapes[i] = new Polygon();
+							((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
+									40.0, 25.0,
+									40.0, -25.0,
+									-40.0, -25.0,
+									-40.0, 25.0,});
+							break;
 
-										case "hexagon":
-											shapes[i] = new Polygon();
-											((Polygon) shapes[i]).getPoints().addAll(new Double[]{
-													40.0, 0.0,
-												    20.0, -34.641,
-												    -20.0, -34.641,
-												    -40.0, 0.0,
-												    -20.0, 34.641,
-												    20.0, 34.641});
-											((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
-											possible_shapes[i] = new Polygon();
-											((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
-													40.0, 0.0,
-												    20.0, -34.641,
-												    -20.0, -34.641,
-												    -40.0, 0.0,
-												    -20.0, 34.641,
-												    20.0, 34.641});
-											break;
-										}
-										
-										//set shape color
-										switch (color.toLowerCase()) {
-										case "red":
-											shapes[i].setFill(Color.RED);
-											possible_shapes[i].setFill(Color.RED);
-											break;
+						case "pentagon":
+							shapes[i] = new Polygon();
+							((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+									0.0, -40.0,
+									-38.0, -12.0,
+									-24.0, 32.0,
+									24.0, 32.0,
+									38.0, -12.0});
+							((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
+							possible_shapes[i] = new Polygon();
+							((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
+									0.0, -40.0,
+									-38.0, -12.0,
+									-24.0, 32.0,
+									24.0, 32.0,
+									38.0, -12.0});
+							break;
 
-										case "orange":
-											shapes[i].setFill(Color.ORANGE);
-											possible_shapes[i].setFill(Color.ORANGE);
-											break;
+						case "hexagon":
+							shapes[i] = new Polygon();
+							((Polygon) shapes[i]).getPoints().addAll(new Double[]{
+									40.0, 0.0,
+									20.0, -34.641,
+									-20.0, -34.641,
+									-40.0, 0.0,
+									-20.0, 34.641,
+									20.0, 34.641});
+							((Polygon) shapes[i]).scaleXProperty().setValue(0.00001);
+							possible_shapes[i] = new Polygon();
+							((Polygon) possible_shapes[i]).getPoints().addAll(new Double[]{
+									40.0, 0.0,
+									20.0, -34.641,
+									-20.0, -34.641,
+									-40.0, 0.0,
+									-20.0, 34.641,
+									20.0, 34.641});
+							break;
+						}
+						
+						//set shape color
+						switch (color.toLowerCase()) {
+						case "red":
+							shapes[i].setFill(Color.RED);
+							possible_shapes[i].setFill(Color.RED);
+							break;
 
-										case "yellow":
-											shapes[i].setFill(Color.YELLOW);
-											possible_shapes[i].setFill(Color.YELLOW);
-											break;
+						case "orange":
+							shapes[i].setFill(Color.ORANGE);
+							possible_shapes[i].setFill(Color.ORANGE);
+							break;
 
-										case "green":
-											shapes[i].setFill(Color.GREEN);
-											possible_shapes[i].setFill(Color.GREEN);
-											break;
+						case "yellow":
+							shapes[i].setFill(Color.YELLOW);
+							possible_shapes[i].setFill(Color.YELLOW);
+							break;
 
-										case "blue":
-											shapes[i].setFill(Color.BLUE);
-											possible_shapes[i].setFill(Color.BLUE);
-											break;
+						case "green":
+							shapes[i].setFill(Color.GREEN);
+							possible_shapes[i].setFill(Color.GREEN);
+							break;
 
-										case "purple":
-											shapes[i].setFill(Color.PURPLE);
-											possible_shapes[i].setFill(Color.PURPLE);
-											break;
-										}
-										
-										// set shape location
-										shapes[i].relocate(x[i], y[i]);
-										possible_shapes[i].relocate(x[i], y[i]);
-										
-										layers.getChildren().add(shapes[i]);
-										
-										//System.out.println(shapes[i]);
-									}
-				            
+						case "blue":
+							shapes[i].setFill(Color.BLUE);
+							possible_shapes[i].setFill(Color.BLUE);
+							break;
 
-				            	
-				            	// new game has begun, but save old score
-				            	cardsFlipped = 0;
-				            	game++;
-				            	game_number.setText("Game: " + game);
-				            	
-				            	// undo any previously played animations ("unflip" cards)
-			            		front1.scaleXProperty().setValue(1);
-			            		back1.scaleXProperty().setValue(1);
-			            		front2.scaleXProperty().setValue(1);
-			            		back2.scaleXProperty().setValue(1);
-			            		front3.scaleXProperty().setValue(1);
-			            		back3.scaleXProperty().setValue(1);
-			            		front4.scaleXProperty().setValue(1);
-			            		back4.scaleXProperty().setValue(1);
-			            		front5.scaleXProperty().setValue(1);
-			            		back5.scaleXProperty().setValue(1);
-			            		front6.scaleXProperty().setValue(1);
-			            		back6.scaleXProperty().setValue(1);
-			            		front7.scaleXProperty().setValue(1);
-			            		back7.scaleXProperty().setValue(1);
-			            		
-				            	
-				            	// adjust the number of visible cards
-				            	// as well as the selection options on top
-				            	if(numberOfShapes == 3) {
-									int[] placed = {0, 0, 0, 0, 0, 0, 0, 0};
-									int j;
-									for(int i = 3; i < 6; i++)
-									{
-										do {
-											j = (int) (3 * Math.random() + 3);
-											System.out.println(j);
-										} while ( placed[j] == 1 );
-										shapes_to_guess.getChildren().add(possible_shapes[j]);
-										placed[j] = 1;
-									}
-										
-				            		card1stack.setVisible(false);
-				            		card2stack.setVisible(false);
-				            		card3stack.setVisible(true);
-				            		color_choice3.setVisible(true);
-				            		shape_choice3.setVisible(true);
-				            		card4stack.setVisible(true);
-				            		color_choice4.setVisible(true);
-				            		shape_choice4.setVisible(true);
-				            		card5stack.setVisible(true);
-				            		color_choice5.setVisible(true);
-				            		shape_choice5.setVisible(true);
-				            		card6stack.setVisible(false);
-				            		card7stack.setVisible(false);
-				            	} else if (numberOfShapes == 5) {
-									int[] placed = {0, 0, 0, 0, 0, 0, 0, 0};
-									for(int i = 0; i < 8; i++)
-										System.out.print(placed[i] + " ");
-				            		int j = 0;
-				            		for(int i = 0; i < 5; i++)
-				            		{
-				            			boolean flag = true;
-				            			while (flag)
-				            			{
-				            				j = (int)(7 * Math.random() + 1);
-				            				System.out.println(j);
-				            				if(placed[j] == 0 && ((j >= 1 && j < 3) || (j >= 6 && j < 8) || (j == 4)))
-				            					flag = false;
-				            			}
-				            			placed[j] = 1;
-										shapes_to_guess.getChildren().add(possible_shapes[j]);
-				            		}
-									
-				            		card1stack.setVisible(true);
-				            		color_choice1.setVisible(true);
-				            		shape_choice1.setVisible(true);
-				            		card2stack.setVisible(true);
-				            		color_choice2.setVisible(true);
-				            		shape_choice2.setVisible(true);
-				            		card3stack.setVisible(false);
-				            		card4stack.setVisible(true);
-				            		color_choice4.setVisible(true);
-				            		shape_choice4.setVisible(true);
-				            		card5stack.setVisible(false);
-				            		card6stack.setVisible(true);
-				            		color_choice6.setVisible(true);
-				            		shape_choice6.setVisible(true);
-				            		card7stack.setVisible(true);
-				            		color_choice7.setVisible(true);
-				            		shape_choice7.setVisible(true);
-				            	} else {
-									int[] placed = {0, 0, 0, 0, 0, 0, 0, 0};
-									for(int i = 1; i < 8; i++)
-									{
-										int j = 0;
-										boolean flag = true;
-										while (flag)
-										{
-											j = (int)(7 * Math.random() + 1);
-											if( placed[j] == 0)
-												flag = false;
-										}
-										placed[j] = 1;
-										shapes_to_guess.getChildren().add(possible_shapes[j]);
-									}
-									
-				            		card1stack.setVisible(true);
-				            		color_choice1.setVisible(true);
-				            		shape_choice1.setVisible(true);
-				            		card2stack.setVisible(true);
-				            		color_choice2.setVisible(true);
-				            		shape_choice2.setVisible(true);
-				            		card3stack.setVisible(true);
-				            		color_choice3.setVisible(true);
-				            		shape_choice3.setVisible(true);
-				            		card4stack.setVisible(true);
-				            		color_choice4.setVisible(true);
-				            		shape_choice4.setVisible(true);
-				            		card5stack.setVisible(true);
-				            		color_choice5.setVisible(true);
-				            		shape_choice5.setVisible(true);
-				            		card6stack.setVisible(true);
-				            		color_choice6.setVisible(true);
-				            		shape_choice6.setVisible(true);
-				            		card7stack.setVisible(true);
-				            		color_choice7.setVisible(true);
-				            		shape_choice7.setVisible(true);
-				            	}
-				            	
-				            	// new game began, display next_flip button
-				            	flip_next.setVisible(true);
-				            	next_game.setVisible(false);
-				            }
-				        });
+						case "purple":
+							shapes[i].setFill(Color.PURPLE);
+							possible_shapes[i].setFill(Color.PURPLE);
+							break;
+						}
+						
+						// set shape location
+						shapes[i].relocate(x[i], y[i]);
+						possible_shapes[i].relocate(x[i], y[i]);
+						
+						layers.getChildren().add(shapes[i]);
+					}
+				
+
+					
+					// new game has begun, but save old score
+					cardsFlipped = 0;
+					game++;
+					game_number.setText("Game: " + game);
+					
+					// undo any previously played animations ("unflip" cards)
+					front1.scaleXProperty().setValue(1);
+					back1.scaleXProperty().setValue(1);
+					front2.scaleXProperty().setValue(1);
+					back2.scaleXProperty().setValue(1);
+					front3.scaleXProperty().setValue(1);
+					back3.scaleXProperty().setValue(1);
+					front4.scaleXProperty().setValue(1);
+					back4.scaleXProperty().setValue(1);
+					front5.scaleXProperty().setValue(1);
+					back5.scaleXProperty().setValue(1);
+					front6.scaleXProperty().setValue(1);
+					back6.scaleXProperty().setValue(1);
+					front7.scaleXProperty().setValue(1);
+					back7.scaleXProperty().setValue(1);
+					
+					
+					// adjust visibility of nodes based on number of cards
+					if(numberOfShapes == 3) {
+						//randomly order display of shapes in side bar
+						int[] placed = {0, 0, 0, 0, 0, 0, 0, 0};
+						int j;
+						for(int i = 3; i < 6; i++)
+						{
+							do {
+								j = (int) (3 * Math.random() + 3);
+								//System.out.println(j);
+							} while ( placed[j] == 1 );
+							shapes_to_guess.getChildren().add(possible_shapes[j]);
+							placed[j] = 1;
+						}
+							
+						card1stack.setVisible(false);
+						card2stack.setVisible(false);
+						card3stack.setVisible(true);
+						color_choice3.setVisible(true);
+						shape_choice3.setVisible(true);
+						card4stack.setVisible(true);
+						color_choice4.setVisible(true);
+						shape_choice4.setVisible(true);
+						card5stack.setVisible(true);
+						color_choice5.setVisible(true);
+						shape_choice5.setVisible(true);
+						card6stack.setVisible(false);
+						card7stack.setVisible(false);
+					} else if (numberOfShapes == 5) {
+						//randomly order display of shapes in side bar
+						int[] placed = {0, 0, 0, 0, 0, 0, 0, 0};
+						//for(int i = 0; i < 8; i++)
+							//System.out.print(placed[i] + " ");
+						int j = 0;
+						for(int i = 0; i < 5; i++)
+						{
+							boolean flag = true;
+							while (flag)
+							{
+								j = (int)(7 * Math.random() + 1);
+								//System.out.println(j);
+								if(placed[j] == 0 && ((j >= 1 && j < 3) || (j >= 6 && j < 8) || (j == 4)))
+									flag = false;
+							}
+							placed[j] = 1;
+							shapes_to_guess.getChildren().add(possible_shapes[j]);
+						}
+						
+						card1stack.setVisible(true);
+						color_choice1.setVisible(true);
+						shape_choice1.setVisible(true);
+						card2stack.setVisible(true);
+						color_choice2.setVisible(true);
+						shape_choice2.setVisible(true);
+						card3stack.setVisible(false);
+						card4stack.setVisible(true);
+						color_choice4.setVisible(true);
+						shape_choice4.setVisible(true);
+						card5stack.setVisible(false);
+						card6stack.setVisible(true);
+						color_choice6.setVisible(true);
+						shape_choice6.setVisible(true);
+						card7stack.setVisible(true);
+						color_choice7.setVisible(true);
+						shape_choice7.setVisible(true);
+					} else { //user is playing with 7 cards, everything should be visible
+						//randomly order display of shapes in side bar
+						int[] placed = {0, 0, 0, 0, 0, 0, 0, 0};
+						for(int i = 1; i < 8; i++)
+						{
+							int j = 0;
+							boolean flag = true;
+							while (flag)
+							{
+								j = (int)(7 * Math.random() + 1);
+								if( placed[j] == 0)
+									flag = false;
+							}
+							placed[j] = 1;
+							shapes_to_guess.getChildren().add(possible_shapes[j]);
+						}
+						
+						card1stack.setVisible(true);
+						color_choice1.setVisible(true);
+						shape_choice1.setVisible(true);
+						card2stack.setVisible(true);
+						color_choice2.setVisible(true);
+						shape_choice2.setVisible(true);
+						card3stack.setVisible(true);
+						color_choice3.setVisible(true);
+						shape_choice3.setVisible(true);
+						card4stack.setVisible(true);
+						color_choice4.setVisible(true);
+						shape_choice4.setVisible(true);
+						card5stack.setVisible(true);
+						color_choice5.setVisible(true);
+						shape_choice5.setVisible(true);
+						card6stack.setVisible(true);
+						color_choice6.setVisible(true);
+						shape_choice6.setVisible(true);
+						card7stack.setVisible(true);
+						color_choice7.setVisible(true);
+						shape_choice7.setVisible(true);
+					}
+					
+					// new game began, display next_flip button
+					flip_next.setVisible(true);
+					next_game.setVisible(false);
+				}
+			});
 			
 			
 			// DISPLAY RESULTS
@@ -1501,8 +1519,6 @@ public class Main extends Application {
 			scene2.getStylesheets().add( 
 					getClass().getResource("scene2.css").toExternalForm() );
 			
-
-			full_screen.getStylesheets().add("background");
 			
 			window.setScene(scene1); //default
 			window.setTitle("The Shape is Right!");
