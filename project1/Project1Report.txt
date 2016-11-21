@@ -1,0 +1,60 @@
+PROJECT ONE
+-----------
+
+Tim Dunn and Jack Broderick
+November 20, 2016
+
+
+IMAGE
+-----
+
+See attached, TheShapeIsRightMenu.png and TheShapeIsRightGame.png
+
+
+
+DESIGN
+------
+
+Our game has is made up of separate scenes. One for the user to make selections to set up the gameplay and one for the gameplay itself. The user will be able to switch from the first scene to the second by pressing a start game button. The user will only be able to press this button and begin the game once all valid selections have been made, and will display a message to the user that not all selections have been made until the user makes them. The second scene will have a similar button. This one will switch back to the first scene but will completely reset the game and start from the beginning. In addition to the main menu button, the gameplay scene will also have a next flip button. This button will “flip” the next card and add a point to the score if the user had correctly guessed the shape. The user will be able to make guesses by selecting a color and a shape on the back of each card. A random assortment of the shapes that the user has options to choose from will be along the right side of the screen. After the first two games, the next flip button is replaced by the next game button and will start the next round when pressed. After three games, the next game button will be replaced by a label that displays the user’s final score. Prior to this, the current score and the current game number will both be displayed. The points will be displayed in the top left corner of the screen and the game number will be displayed in the bottom right corner of the screen. 
+
+
+
+IMPLEMENTATION
+--------------
+
+Our GUI consists of  a single stage and two scenes, one for the main menu and the other for gameplay.
+    
+1) MAIN MENU
+Layout:
+The background of this screen is made up of a VBox that has all of the components of the game. The first element in the VBox is a label, this label is at the top of the screen and displays the name of the game, “The Shape Is Right!”. The next element in the VBox is an HBox. This Hbox contains two ListViews that will be used for selecting the colors and shapes that the user is going to play the game with. The ListViews will just contain strings with the names of the different kinds of shapes and the different colors. They will have MULTIPLE selection mode so that the user can use the shift and command keys to select as many shapes as he/she chooses. When the user makes a selection they will be handled by a ListChangeListener on the ListViews and will add the selections to another List which will later be used in creating the shapes. The listener will then check to make sure that the other two selections have been made (number of sides and shapes/colors) and if they have it will remove the label telling the user to finish making the selections. Next is a VBox which contains a label and a ComboBox. The ComboBox has numbers 3, 5, and 7 which the user will select as the number of shapes he/she wants to play with. The label will be on top of the ComboBox telling the user what is being selected. Next in the VBox is a button that will begin the game as long all selections have been made. Finally, there is a label under the button that will tell the user to make selections if not all of the selections have been made.
+    
+2) GAME SCREEN
+Layout: 
+The background for the game consisted of an HBox which had two VBoxes, the original game screen and a tab on the right to list the remaining shapes (which was added after the original assignment was modified). Within the main VBox there were five HBoxes which were rows of nodes in the scene. The first row contained the score, title, and a button to return to the main menu. The next three rows contained cards, whose visibility was toggled depending upon the number of cards the user wanted to play with. Each card was a StackPane containing an ImageView for the design on the back of the card, two ComboBoxes for guessing the shape and color, and a rectangle for the blank front of the card. The last row told the user which round they are playing, and either a button to flip the next card, a button to progress to the next round, or their final score. 
+
+Animations: 
+For the animation of card flips, a Timeline was used and 21 KeyFrames were added to the Timeline for each possible card flip. Each animation was broken into two steps and 3 KeyFrames. To start, the “back” of the card was fully visible, but by the second KeyFrame it had shrunk to a thin line. From the second until the third KeyFrame, the “front” of the card gradually expanded. When viewed in succession, the animation looks like a card being flipped, as seen from above.
+
+Behind the Scenes:
+We handled the optional number of cards by creating all seven nodes regardless of the user’s selection, and only displaying the number of nodes the user wanted, in a visually appealing formation. Conditional logic was used extensively to record which card should be flipped next based on the current card formation. An array of objects was created to represent the actual shapes and colors the user was trying to guess, and a random number generator was used to randomize the display of these objects to the user. All information except the user’s score is reset between rounds.
+
+
+
+GAMEPLAY
+--------
+
+This game is a parody of the popular game show “The Price is Right”. In our version, the user may select the number of cards he or she wishes to play with (3, 5, or 7), the colors (red, orange, yellow, green, blue, purple) and types of shapes (circle, triangle, square, rectangle, pentagon, hexagon) to guess. Given a randomized list of these shapes, the user must then guess which card contains a picture of each shape. Cards are flipped one at a time, and the user may change their remaining guesses as cards are flipped (for example, if all the red squares are already visible, the user should probably change any later guesses to something other than red squares). For each correct guess, the user is awarded one point. After all cards are flipped, the cards reset, a newly randomized list of shapes is generated, and the next round begins. After playing three rounds of the game, the user’s score is reported, and the user may return to the main menu and start again. If at any point the user wishes to exit the game early, they may simply return to the main menu and all progress will be reset. Since scores are reported out of triple the number of cards, we slightly modified the suggested gameplay so that the user can still guess the last card even though they are guaranteed to get it right by using process of elimination. This way, it is possible to get a perfect score.
+
+
+
+USER STUDY #1
+-------------
+
+Our first user study was done with a non-computer science person so we were hoping to get information about the aesthetics and usability of our game. After we had our user play the game we just had a conversation about what they thought of the game and possible changes that could be made. The user said that he enjoyed the color scheme and layout of the game, especially the wooden background which helped us to affirm that our layout was solid. As far as the actual gameplay the user had multiple constructive comments. Firstly, the user advised that maybe we should make it so that when selecting the colors and shapes you just click and don’t have to hold shift or command to select them. We thought about changing it but we feel that isn’t too much effort to make selections in the current style and a better selection method could be done in a later version of the game. Finally, the user noticed that if you press flip too fast it won’t make it through the whole animation. We didn’t think this was too big of a problem and could most likely be solved using multithreading. 
+
+
+
+USER STUDY #2
+-------------
+
+We had more difficulty finding a second user who was willing to give constructive feedback for our game. Three more users played the game, but didn’t have much to say besides affirming that “it works” and that overall it looked “pretty good”. Finally, one of the testers mentioned that repeatedly using a dropdown menu to select shape and color guesses was somewhat repetitive, and our gameplay could be improved by allowing the user to drag the possible shapes onto the correct cards instead of manually entering their selections. I like this suggestion and believe that it would improve the user’s experience while playing this game, but it will have to wait until a later version.

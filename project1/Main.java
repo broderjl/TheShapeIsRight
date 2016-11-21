@@ -32,7 +32,15 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.image.ImageView;
 
 
-
+/**
+ * <p>Project 1: The Shape is Right</p>
+ * 
+ * <p>This game allows a user to select shapes and colors to guess from, 
+ * and must earn points during three rounds by correctly guessing the randomized
+ * permutation of cards with the images of the randomly generated shapes and colors selected.</p>
+ * @author Tim Dunn and Jack Broderick
+ *
+ */
 public class Main extends Application {
 	
 	Stage window; 
@@ -52,6 +60,10 @@ public class Main extends Application {
 	Shape[] shapes = new Shape[8];
 	Shape[] possible_shapes = new Shape[8];
 	
+	/**
+	 * Driving method which creates and draws the scene and all of its child nodes.
+	 * @param primaryStage The stage upon which the scene of the GUI is built
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		try {
